@@ -79,4 +79,4 @@ export const abstractSqlToTypescriptTypes = (m: AbstractSqlModel) =>
 			const t = m.tables[tableName];
 			return tableToInterface(m, t);
 		})
-		.join('\n');
+		.join('\n\n') + '\n';
