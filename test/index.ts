@@ -14,7 +14,7 @@ const test = (s: string, m: Partial<AbstractSqlModel>, e: string) => {
 			...m,
 		};
 
-		expect(abstractSqlToTypescriptTypes(t)).to.equal(e);
+		expect(abstractSqlToTypescriptTypes(t)).to.equal(e + '\n');
 	});
 };
 
