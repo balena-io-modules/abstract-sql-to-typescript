@@ -16,7 +16,11 @@ const modelNameToTypescriptName = (s: string) =>
 		.map((p) => p[0].toLocaleUpperCase() + p.slice(1))
 		.join('');
 
-const sqlTypeToTypescriptType = (m: AbstractSqlModel, f: AbstractSqlField) => {
+const sqlTypeToTypescriptType = (
+	m: AbstractSqlModel,
+	f: AbstractSqlField,
+	serializable: boolean,
+) => {
 	switch (f.dataType) {
 		case 'Boolean':
 			return 'boolean';
@@ -25,7 +29,7 @@ const sqlTypeToTypescriptType = (m: AbstractSqlModel, f: AbstractSqlField) => {
 		case 'Hashed':
 			return 'string';
 		case 'Date Time':
-			return 'Date';
+			return serializable ? 'string' : 'Date';
 		case 'Serial':
 		case 'Integer':
 		case 'Big Integer':
@@ -51,6 +55,7 @@ const sqlTypeToTypescriptType = (m: AbstractSqlModel, f: AbstractSqlField) => {
 const fieldsToInterfaceProps = (
 	m: AbstractSqlModel,
 	fields: AbstractSqlField[],
+	opts?: Options,
 ) =>
 	fields
 		.map((f) => {
@@ -59,6 +64,7 @@ const fieldsToInterfaceProps = (
 	${sqlNameToODataName(f.fieldName)}?: ${sqlTypeToTypescriptType(
 				m,
 				f,
+				!!opts?.serializable,
 			)}${nullable};
 `;
 		})
@@ -67,16 +73,24 @@ const fieldsToInterfaceProps = (
 const tableToInterface = (
 	m: AbstractSqlModel,
 	table: AbstractSqlTable,
+	opts?: Options,
 ) => trimNL`
 export interface ${modelNameToTypescriptName(table.name)} {
-${fieldsToInterfaceProps(m, table.fields)}
+${fieldsToInterfaceProps(m, table.fields, opts)}
 }
 `;
 
-export const abstractSqlToTypescriptTypes = (m: AbstractSqlModel) =>
+interface Options {
+	serializable?: boolean;
+}
+
+export const abstractSqlToTypescriptTypes = (
+	m: AbstractSqlModel,
+	opts?: Options,
+) =>
 	Object.keys(m.tables)
 		.map((tableName) => {
 			const t = m.tables[tableName];
-			return tableToInterface(m, t);
+			return tableToInterface(m, t, opts);
 		})
 		.join('\n\n') + '\n';
