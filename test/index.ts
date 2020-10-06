@@ -19,7 +19,8 @@ const test = (s: string, m: Partial<AbstractSqlModel>, e: string) => {
 };
 
 test('no types for an empty model', {}, '');
-test('correct types for an actor table',
+test(
+	'correct types for an actor table',
 	{
 		tables: {
 			actor: {
@@ -60,7 +61,7 @@ test('correct types for an actor table',
 		},
 	},
 	stripIndent`
-		interface Actor {
+		export interface Actor {
 			created_at?: Date;
 			modified_at?: Date;
 			id?: number;

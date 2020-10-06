@@ -68,7 +68,7 @@ const tableToInterface = (
 	m: AbstractSqlModel,
 	table: AbstractSqlTable,
 ) => trimNL`
-interface ${modelNameToTypescriptName(table.name)} {
+export interface ${modelNameToTypescriptName(table.name)} {
 ${fieldsToInterfaceProps(m, table.fields)}
 }
 `;
