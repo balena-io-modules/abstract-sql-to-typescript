@@ -1,0 +1,51 @@
+- commits:
+    - subject: Improve typings for fields with definitions
+      hash: 546cf35c7916949750df4584cfa5a50ee338eb43
+      body: ''
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Mark properties an Non-optional
+      hash: 91f529ff338a244b932c08faf3d1d7ac7961fcd2
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Add an option for using only serializable types
+      hash: 53e02eb62840a3554f67f8061bbed7511ada5d24
+      body: ''
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Add some spacing between the generated types
+      hash: bc1a4af5c36732a937e28afaf52de57d29f95e28
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Export the generated types
+      hash: ce60515c14505e77ad24f954d1a58e7d24f3a053
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Support generating typescript interfaces from an abstract sql model
+      hash: 2bd172edacc5749b3a732db716f5674c4f16dba2
+      body: ''
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+  version: 1.0.0
+  date: 2020-10-08T13:45:40.357Z
