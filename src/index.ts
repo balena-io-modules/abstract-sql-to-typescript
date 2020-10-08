@@ -61,7 +61,7 @@ const fieldsToInterfaceProps = (
 		.map((f) => {
 			const nullable = f.required ? '' : ' | null';
 			return trimNL`
-	${sqlNameToODataName(f.fieldName)}?: ${sqlTypeToTypescriptType(
+	${sqlNameToODataName(f.fieldName)}: ${sqlTypeToTypescriptType(
 				m,
 				f,
 				!!opts?.serializable,
