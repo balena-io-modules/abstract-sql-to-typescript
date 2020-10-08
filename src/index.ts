@@ -2,6 +2,7 @@ import {
 	AbstractSqlField,
 	AbstractSqlModel,
 	AbstractSqlTable,
+	InNode,
 } from '@balena/abstract-sql-compiler';
 import { sqlNameToODataName } from '@balena/odata-to-abstract-sql';
 import { replaceResultTransformer, TemplateTag } from 'common-tags';
@@ -21,6 +22,18 @@ const sqlTypeToTypescriptType = (
 	f: AbstractSqlField,
 	serializable: boolean,
 ) => {
+	if (!['ForeignKey', 'ConceptType'].includes(f.dataType) && f.checks) {
+		const inChecks = f.checks.find(
+			(checkTuple): checkTuple is InNode => checkTuple[0] === 'In',
+		);
+		if (inChecks) {
+			const [, , ...allowedValues] = inChecks;
+			return allowedValues
+				.map(([type, value]) => (type === 'Text' ? `'${value}'` : value))
+				.join(' | ');
+		}
+	}
+
 	switch (f.dataType) {
 		case 'Boolean':
 			return 'boolean';
