@@ -21,6 +21,7 @@ const test = (
 
 		expect(abstractSqlToTypescriptTypes(t, { mode })).to.equal(source`
 			export type DateString = string;
+
 			${expectation}
 		`);
 	});
@@ -28,9 +29,9 @@ const test = (
 
 test('no types for an empty model', {}, '');
 
-const actorTable: Partial<AbstractSqlModel> = {
+const testTable: Partial<AbstractSqlModel> = {
 	tables: {
-		actor: {
+		test: {
 			fields: [
 				{
 					dataType: 'Date Time',
@@ -50,12 +51,53 @@ const actorTable: Partial<AbstractSqlModel> = {
 					required: true,
 					index: 'PRIMARY KEY',
 				},
+				{
+					dataType: 'ConceptType',
+					fieldName: 'parent',
+					required: true,
+					references: {
+						resourceName: 'parent',
+						fieldName: 'id',
+					},
+				},
+				{
+					dataType: 'ForeignKey',
+					fieldName: 'referenced',
+					required: true,
+					references: {
+						resourceName: 'referenced',
+						fieldName: 'id',
+					},
+				},
 			],
 			primitive: false,
-			name: 'actor',
+			name: 'test',
 			indexes: [],
 			idField: 'id',
-			resourceName: 'actor',
+			resourceName: 'test',
+			triggers: [
+				{
+					when: 'BEFORE',
+					operation: 'UPDATE',
+					level: 'ROW',
+					fnName: 'trigger_update_modified_at',
+				},
+			],
+		},
+		referenced: {
+			fields: [
+				{
+					dataType: 'Serial',
+					fieldName: 'id',
+					required: true,
+					index: 'PRIMARY KEY',
+				},
+			],
+			primitive: false,
+			name: 'referenced',
+			indexes: [],
+			idField: 'id',
+			resourceName: 'referenced',
 			triggers: [
 				{
 					when: 'BEFORE',
@@ -69,117 +111,38 @@ const actorTable: Partial<AbstractSqlModel> = {
 };
 
 test(
-	'correct read types for an actor table',
-	actorTable,
+	'correct read types for a test table',
+	testTable,
 	source`
-		export interface Actor {
+		export interface Test {
 			created_at: Date;
 			modified_at: Date;
+			id: number;
+			parent: number;
+			referenced: { __id: number } | [Referenced];
+		}
+
+		export interface Referenced {
 			id: number;
 		}
 	`,
 );
 
 test(
-	'correct write types for an actor table',
-	actorTable,
+	'correct write types for a test table',
+	testTable,
 	source`
-		export interface Actor {
+		export interface Test {
 			created_at: Date;
 			modified_at: Date;
+			id: number;
+			parent: number;
+			referenced: number;
+		}
+
+		export interface Referenced {
 			id: number;
 		}
 	`,
 	'write',
-);
-
-test(
-	'correct types for two tables',
-	{
-		tables: {
-			actor: {
-				fields: [
-					{
-						dataType: 'Date Time',
-						fieldName: 'created at',
-						required: true,
-						defaultValue: 'CURRENT_TIMESTAMP',
-					},
-					{
-						dataType: 'Date Time',
-						fieldName: 'modified at',
-						required: true,
-						defaultValue: 'CURRENT_TIMESTAMP',
-					},
-					{
-						dataType: 'Serial',
-						fieldName: 'id',
-						required: true,
-						index: 'PRIMARY KEY',
-					},
-				],
-				primitive: false,
-				name: 'actor',
-				indexes: [],
-				idField: 'id',
-				resourceName: 'actor',
-				triggers: [
-					{
-						when: 'BEFORE',
-						operation: 'UPDATE',
-						level: 'ROW',
-						fnName: 'trigger_update_modified_at',
-					},
-				],
-			},
-			other: {
-				fields: [
-					{
-						dataType: 'Date Time',
-						fieldName: 'created at',
-						required: true,
-						defaultValue: 'CURRENT_TIMESTAMP',
-					},
-					{
-						dataType: 'Date Time',
-						fieldName: 'modified at',
-						required: true,
-						defaultValue: 'CURRENT_TIMESTAMP',
-					},
-					{
-						dataType: 'Serial',
-						fieldName: 'id',
-						required: true,
-						index: 'PRIMARY KEY',
-					},
-				],
-				primitive: false,
-				name: 'other',
-				indexes: [],
-				idField: 'id',
-				resourceName: 'actor',
-				triggers: [
-					{
-						when: 'BEFORE',
-						operation: 'UPDATE',
-						level: 'ROW',
-						fnName: 'trigger_update_modified_at',
-					},
-				],
-			},
-		},
-	},
-	source`
-		export interface Actor {
-			created_at: Date;
-			modified_at: Date;
-			id: number;
-		}
-
-		export interface Other {
-			created_at: Date;
-			modified_at: Date;
-			id: number;
-		}
-	`,
 );

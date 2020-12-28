@@ -48,9 +48,11 @@ const sqlTypeToTypescriptType = (
 		case 'Big Integer':
 		case 'Real':
 			return 'number';
-		// TODO: ForeignKey/ConceptType should really be that of the referenced id
-		case 'ForeignKey':
 		case 'ConceptType':
+			// ConceptType should really act the same as a foreign key but as of pinejs 14 it is mistakenly treated as a local field
+			return 'number';
+		// TODO: ForeignKey/ConceptType should really use the type of the referenced id
+		case 'ForeignKey':
 			if (opts.mode === 'write') {
 				return 'number';
 			}
@@ -112,6 +114,7 @@ export const abstractSqlToTypescriptTypes = (
 	};
 	return trimNL`
 export type DateString = string;
+
 ${Object.keys(m.tables)
 	.map((tableName) => {
 		const t = m.tables[tableName];
