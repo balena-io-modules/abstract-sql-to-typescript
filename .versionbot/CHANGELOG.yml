@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix types for ConceptType fields
+      hash: b718096c1ead1c276e687e444e09b388d6e4f966
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 1.0.1
+  date: 2020-12-28T20:00:06.230Z
+- commits:
     - subject: Support generating typescript interfaces from an abstract sql model
       hash: f02b8e19c1322125466abb08aad0265548419909
       body: ''
