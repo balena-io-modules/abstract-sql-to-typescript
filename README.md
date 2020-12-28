@@ -1,0 +1,1 @@
+Convert abstract SQL model into typescript interfaces.
