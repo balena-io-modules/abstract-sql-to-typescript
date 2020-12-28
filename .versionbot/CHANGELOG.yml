@@ -1,0 +1,11 @@
+- commits:
+    - subject: Support generating typescript interfaces from an abstract sql model
+      hash: f02b8e19c1322125466abb08aad0265548419909
+      body: ''
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+  version: 1.0.0
+  date: 2020-12-28T17:50:35.847Z
