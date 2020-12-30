@@ -31,6 +31,76 @@ test('no types for an empty model', {}, '');
 
 const testTable: Partial<AbstractSqlModel> = {
 	tables: {
+		parent: {
+			fields: [
+				{
+					dataType: 'Date Time',
+					fieldName: 'created at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'Date Time',
+					fieldName: 'modified at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'Serial',
+					fieldName: 'id',
+					required: true,
+					index: 'PRIMARY KEY',
+				},
+			],
+			primitive: false,
+			name: 'parent',
+			indexes: [],
+			idField: 'id',
+			resourceName: 'parent',
+			triggers: [
+				{
+					when: 'BEFORE',
+					operation: 'UPDATE',
+					level: 'ROW',
+					fnName: 'trigger_update_modified_at',
+				},
+			],
+		},
+		other: {
+			fields: [
+				{
+					dataType: 'Date Time',
+					fieldName: 'created at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'Date Time',
+					fieldName: 'modified at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'Serial',
+					fieldName: 'id',
+					required: true,
+					index: 'PRIMARY KEY',
+				},
+			],
+			primitive: false,
+			name: 'other',
+			indexes: [],
+			idField: 'id',
+			resourceName: 'other',
+			triggers: [
+				{
+					when: 'BEFORE',
+					operation: 'UPDATE',
+					level: 'ROW',
+					fnName: 'trigger_update_modified_at',
+				},
+			],
+		},
 		test: {
 			fields: [
 				{
@@ -62,10 +132,10 @@ const testTable: Partial<AbstractSqlModel> = {
 				},
 				{
 					dataType: 'ForeignKey',
-					fieldName: 'referenced',
+					fieldName: 'references-other',
 					required: true,
 					references: {
-						resourceName: 'referenced',
+						resourceName: 'other',
 						fieldName: 'id',
 					},
 				},
@@ -84,29 +154,6 @@ const testTable: Partial<AbstractSqlModel> = {
 				},
 			],
 		},
-		referenced: {
-			fields: [
-				{
-					dataType: 'Serial',
-					fieldName: 'id',
-					required: true,
-					index: 'PRIMARY KEY',
-				},
-			],
-			primitive: false,
-			name: 'referenced',
-			indexes: [],
-			idField: 'id',
-			resourceName: 'referenced',
-			triggers: [
-				{
-					when: 'BEFORE',
-					operation: 'UPDATE',
-					level: 'ROW',
-					fnName: 'trigger_update_modified_at',
-				},
-			],
-		},
 	},
 };
 
@@ -114,16 +161,24 @@ test(
 	'correct read types for a test table',
 	testTable,
 	source`
+		export interface Parent {
+			created_at: DateString;
+			modified_at: DateString;
+			id: number;
+		}
+
+		export interface Other {
+			created_at: DateString;
+			modified_at: DateString;
+			id: number;
+		}
+
 		export interface Test {
 			created_at: DateString;
 			modified_at: DateString;
 			id: number;
 			parent: number;
-			referenced: { __id: number } | [Referenced];
-		}
-
-		export interface Referenced {
-			id: number;
+			references__other: { __id: number } | [Other];
 		}
 	`,
 );
@@ -132,16 +187,24 @@ test(
 	'correct write types for a test table',
 	testTable,
 	source`
+		export interface Parent {
+			created_at: Date;
+			modified_at: Date;
+			id: number;
+		}
+
+		export interface Other {
+			created_at: Date;
+			modified_at: Date;
+			id: number;
+		}
+
 		export interface Test {
 			created_at: Date;
 			modified_at: Date;
 			id: number;
 			parent: number;
-			referenced: number;
-		}
-
-		export interface Referenced {
-			id: number;
+			references__other: number;
 		}
 	`,
 	'write',
