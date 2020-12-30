@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add support for reverse references using relationships info
+      hash: f88906a47a0fab33064a46c5b9d56798f9adf2e0
+      body: ''
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+  version: 1.1.0
+  date: 2020-12-30T18:05:21.397Z
+- commits:
     - subject: Use the referenced field's data type for foreign keys/concept types
       hash: eb768404e75c538d3b694c393e30e43abd30f020
       body: ''
