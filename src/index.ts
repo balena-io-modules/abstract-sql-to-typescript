@@ -7,6 +7,21 @@ import {
 import { sqlNameToODataName } from '@balena/odata-to-abstract-sql';
 import { replaceResultTransformer, TemplateTag } from 'common-tags';
 
+const typeHelpers = {
+	read: `
+export type DateString = string;
+export type Expanded<T> = Extract<T, any[]>;
+export type PickExpanded<T, U extends keyof T> = {
+	[P in K]: Expanded<T[P]>;
+};
+export type Deferred<T> = Exclude<T, any[]>;
+export type PickDeferred<T, U extends keyof T> = {
+	[P in K]: Deferred<T[P]>;
+};
+`,
+	write: '',
+};
+
 const trimNL = new TemplateTag(
 	replaceResultTransformer(/^[\r\n]*|[\r\n]*$/g, ''),
 );
@@ -124,13 +139,13 @@ export const abstractSqlToTypescriptTypes = (
 	m: AbstractSqlModel,
 	opts: Options = {},
 ): string => {
+	const mode = opts.mode ?? 'read';
 	const requiredOptions: RequiredOptions = {
 		...opts,
-		mode: opts.mode ?? 'read',
+		mode,
 	};
 	return trimNL`
-export type DateString = string;
-
+${typeHelpers[mode]}
 ${Object.keys(m.tables)
 	.map((tableName) => {
 		const t = m.tables[tableName];
