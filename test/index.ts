@@ -155,6 +155,37 @@ const testTable: Partial<AbstractSqlModel> = {
 			],
 		},
 	},
+	relationships: {
+		test: {
+			parent: {
+				$: ['parent', ['parent', 'id']],
+			},
+			has: {
+				parent: {
+					$: ['parent', ['parent', 'id']],
+				},
+			},
+			references: {
+				other: {
+					$: ['references-other', ['other', 'id']],
+				},
+			},
+			test: {
+				references: {
+					other: {
+						$: ['id', ['test-references-other', 'test']],
+					},
+				},
+			},
+		},
+		other: {
+			'is referenced by': {
+				test: {
+					$: ['id', ['test', 'references-other']],
+				},
+			},
+		},
+	},
 };
 
 test(
@@ -171,6 +202,7 @@ test(
 			created_at: DateString;
 			modified_at: DateString;
 			id: number;
+			is_referenced_by__test?: Test[];
 		}
 
 		export interface Test {
