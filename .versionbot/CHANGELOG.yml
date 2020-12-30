@@ -1,4 +1,15 @@
 - commits:
+    - subject: Use the referenced field's data type for foreign keys/concept types
+      hash: eb768404e75c538d3b694c393e30e43abd30f020
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 1.0.3
+  date: 2020-12-30T15:42:05.820Z
+- commits:
     - subject: Fix defaulting mode to `read`
       hash: 377ed4c9c2bc65d94f4ade0fe667c3f91bd3baca
       body: ''
