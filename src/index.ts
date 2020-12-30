@@ -11,17 +11,33 @@ const trimNL = new TemplateTag(
 	replaceResultTransformer(/^[\r\n]*|[\r\n]*$/g, ''),
 );
 
-const modelNameToCamelCaseName = (s: string) =>
+const modelNameToCamelCaseName = (s: string): string =>
 	s
 		.split(/[ -]/)
 		.map((p) => p[0].toLocaleUpperCase() + p.slice(1))
 		.join('');
 
+const getReferencedDataType = (
+	m: AbstractSqlModel,
+	{ references }: AbstractSqlField,
+	opts: RequiredOptions,
+): string => {
+	if (references != null) {
+		const referencedField = m.tables[references.resourceName].fields.find(
+			(f) => f.fieldName === references.fieldName,
+		);
+		if (referencedField != null) {
+			return sqlTypeToTypescriptType(m, referencedField, opts);
+		}
+	}
+	return 'number';
+};
+
 const sqlTypeToTypescriptType = (
 	m: AbstractSqlModel,
 	f: AbstractSqlField,
 	opts: RequiredOptions,
-) => {
+): string => {
 	if (!['ForeignKey', 'ConceptType'].includes(f.dataType) && f.checks) {
 		const inChecks = f.checks.find(
 			(checkTuple): checkTuple is InNode => checkTuple[0] === 'In',
@@ -50,18 +66,18 @@ const sqlTypeToTypescriptType = (
 			return 'number';
 		case 'ConceptType':
 			// ConceptType should really act the same as a foreign key but as of pinejs 14 it is mistakenly treated as a local field
-			return 'number';
-		// TODO: ForeignKey/ConceptType should really use the type of the referenced id
+			return getReferencedDataType(m, f, opts);
 		case 'ForeignKey':
+			const referencedDataType = getReferencedDataType(m, f, opts);
 			if (opts.mode === 'write') {
-				return 'number';
+				return referencedDataType;
 			}
 
 			const referencedInterface = modelNameToCamelCaseName(
 				m.tables[f.references!.resourceName].name,
 			);
 			const nullable = f.required ? '' : '?';
-			return `{ __id: number } | [${referencedInterface}${nullable}]`;
+			return `{ __id: ${referencedDataType} } | [${referencedInterface}${nullable}]`;
 		case 'File':
 			return 'Buffer';
 		case 'JSON':
@@ -75,7 +91,7 @@ const fieldsToInterfaceProps = (
 	m: AbstractSqlModel,
 	fields: AbstractSqlField[],
 	opts: RequiredOptions,
-) =>
+): string =>
 	fields
 		.map((f) => {
 			const nullable = f.required ? '' : ' | null';
@@ -107,7 +123,7 @@ type RequiredOptions = Required<Options>;
 export const abstractSqlToTypescriptTypes = (
 	m: AbstractSqlModel,
 	opts: Options = {},
-) => {
+): string => {
 	const requiredOptions: RequiredOptions = {
 		...opts,
 		mode: opts.mode ?? 'read',
