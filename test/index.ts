@@ -115,8 +115,8 @@ test(
 	testTable,
 	source`
 		export interface Test {
-			created_at: Date;
-			modified_at: Date;
+			created_at: DateString;
+			modified_at: DateString;
 			id: number;
 			parent: number;
 			referenced: { __id: number } | [Referenced];
