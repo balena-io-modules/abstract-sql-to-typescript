@@ -109,8 +109,8 @@ export const abstractSqlToTypescriptTypes = (
 	opts: Options = {},
 ) => {
 	const requiredOptions: RequiredOptions = {
-		mode: 'read',
 		...opts,
+		mode: opts.mode ?? 'read',
 	};
 	return trimNL`
 export type DateString = string;
