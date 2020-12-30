@@ -18,12 +18,25 @@ const test = (
 			rules: [],
 			...model,
 		};
+		const result = abstractSqlToTypescriptTypes(t, { mode });
 
-		expect(abstractSqlToTypescriptTypes(t, { mode })).to.equal(source`
+		if (mode == null || mode === 'read') {
+			expect(result).to.equal(source`
 			export type DateString = string;
+			export type Expanded<T> = Extract<T, any[]>;
+			export type PickExpanded<T, U extends keyof T> = {
+				[P in K]: Expanded<T[P]>;
+			};
+			export type Deferred<T> = Exclude<T, any[]>;
+			export type PickDeferred<T, U extends keyof T> = {
+				[P in K]: Deferred<T[P]>;
+			};
 
 			${expectation}
 		`);
+		} else {
+			expect(result).to.equal(expectation);
+		}
 	});
 };
 
