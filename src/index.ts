@@ -3,6 +3,9 @@ import type {
 	AbstractSqlModel,
 	AbstractSqlTable,
 	InNode,
+	Relationship,
+	RelationshipInternalNode,
+	RelationshipLeafNode,
 } from '@balena/abstract-sql-compiler';
 import { sqlNameToODataName } from '@balena/odata-to-abstract-sql';
 import { replaceResultTransformer, TemplateTag } from 'common-tags';
@@ -12,7 +15,7 @@ const typeHelpers = {
 export type DateString = string;
 export type Expanded<T> = Extract<T, any[]>;
 export type PickExpanded<T, K extends keyof T> = {
-	[P in K]: Expanded<T[P]>;
+	[P in K]-?: Expanded<T[P]>;
 };
 export type Deferred<T> = Exclude<T, any[]>;
 export type PickDeferred<T, K extends keyof T> = {
@@ -106,29 +109,88 @@ const fieldsToInterfaceProps = (
 	m: AbstractSqlModel,
 	fields: AbstractSqlField[],
 	opts: RequiredOptions,
-): string =>
-	fields
-		.map((f) => {
-			const nullable = f.required ? '' : ' | null';
-			return trimNL`
-	${sqlNameToODataName(f.fieldName)}: ${sqlTypeToTypescriptType(
-				m,
-				f,
-				opts,
-			)}${nullable};
-`;
-		})
-		.join('\n');
+): string[] =>
+	fields.map((f) => {
+		const nullable = f.required ? '' : ' | null';
+		return `${sqlNameToODataName(f.fieldName)}: ${sqlTypeToTypescriptType(
+			m,
+			f,
+			opts,
+		)}${nullable};`;
+	});
+
+const recurseRelationships = (
+	m: AbstractSqlModel,
+	relationships: Relationship,
+	opts: RequiredOptions,
+	currentTable: AbstractSqlTable,
+	parentKey: string,
+): string[] =>
+	Object.keys(relationships).flatMap((key) => {
+		if (key === '$') {
+			const [localField, referencedField] = (
+				relationships as RelationshipLeafNode
+			).$;
+			if (currentTable.idField === localField && referencedField != null) {
+				const referencedTable = m.tables[referencedField[0]];
+				if (referencedTable != null) {
+					const referencedInterface = modelNameToCamelCaseName(
+						referencedTable.name,
+					);
+					return `${parentKey}?: ${referencedInterface}[];`;
+				}
+			}
+			return [];
+		}
+		return recurseRelationships(
+			m,
+			(relationships as RelationshipInternalNode)[key],
+			opts,
+			currentTable,
+			`${parentKey}__${key.replace(/ /g, '_')}`,
+		);
+	});
+
+const relationshipsToInterfaceProps = (
+	m: AbstractSqlModel,
+	table: AbstractSqlTable,
+	opts: RequiredOptions,
+): string[] => {
+	const relationships = m.relationships[table.resourceName];
+	if (relationships == null) {
+		return [];
+	}
+	return Object.keys(relationships).flatMap((key) => {
+		// We skip `has` a the top level as we omit it by convention
+		if (key === 'has') {
+			return [];
+		}
+		return recurseRelationships(
+			m,
+			relationships[key],
+			opts,
+			table,
+			key.replace(/ /g, '_'),
+		);
+	});
+};
 
 const tableToInterface = (
 	m: AbstractSqlModel,
 	table: AbstractSqlTable,
 	opts: RequiredOptions,
-) => trimNL`
+) => {
+	const relationshipProps =
+		opts.mode === 'read' ? relationshipsToInterfaceProps(m, table, opts) : [];
+
+	return trimNL`
 export interface ${modelNameToCamelCaseName(table.name)} {
-${fieldsToInterfaceProps(m, table.fields, opts)}
+	${[...fieldsToInterfaceProps(m, table.fields, opts), ...relationshipProps].join(
+		'\n\t',
+	)}
 }
 `;
+};
 
 export interface Options {
 	mode?: 'read' | 'write';
