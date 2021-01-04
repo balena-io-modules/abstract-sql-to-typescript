@@ -11,11 +11,11 @@ const typeHelpers = {
 	read: `
 export type DateString = string;
 export type Expanded<T> = Extract<T, any[]>;
-export type PickExpanded<T, U extends keyof T> = {
+export type PickExpanded<T, K extends keyof T> = {
 	[P in K]: Expanded<T[P]>;
 };
 export type Deferred<T> = Exclude<T, any[]>;
-export type PickDeferred<T, U extends keyof T> = {
+export type PickDeferred<T, K extends keyof T> = {
 	[P in K]: Deferred<T[P]>;
 };
 `,
