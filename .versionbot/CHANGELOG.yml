@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix PickExpanded/PickDeferred type helpers
+      hash: ab7a898e7d55c50f0702560d4df1f2b29a775b90
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 1.1.1
+  date: 2021-01-04T15:25:29.186Z
+- commits:
     - subject: Add type helpers for dealing with expanded/deferred read types
       hash: 8267272e729853cb8e16467f1d345074d1a331fe
       body: ''
