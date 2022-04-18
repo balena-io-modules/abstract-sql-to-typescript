@@ -25,7 +25,7 @@ const test = (
 			export type DateString = string;
 			export type Expanded<T> = Extract<T, any[]>;
 			export type PickExpanded<T, K extends keyof T> = {
-				[P in K]: Expanded<T[P]>;
+				[P in K]-?: Expanded<T[P]>;
 			};
 			export type Deferred<T> = Exclude<T, any[]>;
 			export type PickDeferred<T, K extends keyof T> = {
@@ -168,6 +168,37 @@ const testTable: Partial<AbstractSqlModel> = {
 			],
 		},
 	},
+	relationships: {
+		test: {
+			parent: {
+				$: ['parent', ['parent', 'id']],
+			},
+			has: {
+				parent: {
+					$: ['parent', ['parent', 'id']],
+				},
+			},
+			references: {
+				other: {
+					$: ['references-other', ['other', 'id']],
+				},
+			},
+			test: {
+				references: {
+					other: {
+						$: ['id', ['test-references-other', 'test']],
+					},
+				},
+			},
+		},
+		other: {
+			'is referenced by': {
+				test: {
+					$: ['id', ['test', 'references-other']],
+				},
+			},
+		},
+	},
 };
 
 test(
@@ -184,6 +215,7 @@ test(
 			created_at: DateString;
 			modified_at: DateString;
 			id: number;
+			is_referenced_by__test?: Test[];
 		}
 
 		export interface Test {
