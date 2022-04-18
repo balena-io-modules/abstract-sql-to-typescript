@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add support for reverse references using relationships info
+      hash: 0899e7780f41e34f7ee396f24fc4aff1edf7e4f8
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+  version: 1.2.0
+  title: "'Add support for reverse references using relationships info'"
+  date: 2022-04-15T14:46:55.075Z
+- commits:
     - subject: Update dependencies
       hash: dd79d29d1e4ac31a4fdf7daf2e663ef876aec09c
       body: |
