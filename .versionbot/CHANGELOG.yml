@@ -1,4 +1,17 @@
 - commits:
+    - subject: Add web-resource type to sqlTypeToTypescriptType
+      hash: 73219661924982b8afd3e4649229287c39f799a1
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+        Signed-off-by: Nitish Agarwal <1592163+nitishagar@users.noreply.github.com>
+        signed-off-by: Nitish Agarwal <1592163+nitishagar@users.noreply.github.com>
+      author: Nitish Agarwal
+      nested: []
+  version: 1.2.2
+  date: 2022-11-15T08:21:09.945Z
+- commits:
     - subject: Switch from balenaCI to flowzone
       hash: 61d932ce996cb564443477a5469224e82cdca9b7
       body: ""
@@ -70,7 +83,8 @@
                     - subject: Add reference property type
                       hash: d28e2456dff10b18bcc97b7232479fe78efd5eb3
                       body: >
-                        Property type describes if the reference is 'strict' or 'informative'.
+                        Property type describes if the reference is 'strict' or
+                        'informative'.
 
 
                         Behaviour change only if type is informative otherwise default 'strict'.
@@ -95,7 +109,8 @@
                     - subject: Avoid the operation type optimization for HAVING clauses
                       hash: 3fcf08bc02c21d9f49b78787ed516fa9a403f021
                       body: >
-                        Since it's possible for them to behave in a way that violates the
+                        Since it's possible for them to behave in a way that
+                        violates the
 
                         safety checks we'll disable them until we can add specific checks
 
@@ -140,7 +155,8 @@
             - subject: Use the full alias for the prefix hash
               hash: d60132e2eed1408735c1ee6dae12d69548cb1796
               body: >
-                This simplifies the code and also avoids an issue where we not using
+                This simplifies the code and also avoids an issue where we not
+                using
 
                 enough of the prefix for the hash
               footer:
@@ -154,7 +170,8 @@
             - subject: Use a hash instead of random str when it's necessary to shorten aliases
               hash: cb05ec69fe0e08fc4619b38a99272c3a7ea42e21
               body: >
-                This means the prefix will be stable/reliable across runs and make it
+                This means the prefix will be stable/reliable across runs and
+                make it
 
                 easier to compare the output generating from different runs
 
@@ -329,7 +346,8 @@
                     - subject: Revert "Remove now unnecessary hack for casting SERIAL types"
                       hash: 60a56423de9262b5b454ff4cd83c1d1fd39d071e
                       body: >
-                        This reverts commit 187bc075d237a2ced731d0a026ca25aa3e0f5540.
+                        This reverts commit
+                        187bc075d237a2ced731d0a026ca25aa3e0f5540.
                       footer:
                         Change-type: patch
                         change-type: patch
@@ -341,7 +359,8 @@
                     - subject: Remove now unnecessary hack for casting SERIAL types
                       hash: 187bc075d237a2ced731d0a026ca25aa3e0f5540
                       body: >
-                        This became unnecessary when @balena/sbvr-types added the concept of
+                        This became unnecessary when @balena/sbvr-types added
+                        the concept of
 
                         cast types since that now specifies how to cast a SERIAL type
                       footer:
@@ -505,7 +524,8 @@
                     - subject: Add a `getRuleReferencedFields` which is tailored for rules
                       hash: 256c36de4a1efb7a46eb9833e1c3228d17194015
                       body: >
-                        This works on the assumption that it is a rule query that should always
+                        This works on the assumption that it is a rule query
+                        that should always
 
                         return true and allows ignoring more modification cases where they
 
