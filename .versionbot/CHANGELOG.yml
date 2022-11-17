@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency mocha to 10.1.0
+      hash: 6e489e61c48227e209ba112c42e89ac927d8caf9
+      body: |
+        Update mocha to 10.1.0
+
+        Update mocha from 9.2.2 to 10.1.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.2.4
+  title: ""
+  date: 2022-11-17T19:04:01.910Z
+- commits:
     - subject: Update dependency lint-staged to 13.0.3
       hash: 6efeaac395f06a91959ecfe8f087ee347c2e825a
       body: |
