@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency husky to 8.0.2
+      hash: a31d4b4ec35018cfb2e21f9128e1479be5ecd072
+      body: |
+        Update husky to 8.0.2
+
+        Update husky from 4.3.8 to 8.0.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.2.2
+  title: ""
+  date: 2022-11-17T17:05:52.448Z
+- commits:
     - subject: Switch from balenaCI to flowzone
       hash: 61d932ce996cb564443477a5469224e82cdca9b7
       body: ""
