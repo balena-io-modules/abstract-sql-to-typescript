@@ -1,4 +1,18 @@
 - commits:
+    - subject: "Dev: Migrate husky setup for v8"
+      hash: 85479e4e5fd052fbdaee8ba323038f4ed5b8df89
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Josh Bowling <josh@monarci.com>
+        signed-off-by: Josh Bowling <josh@monarci.com>
+      author: Josh Bowling
+      nested: []
+  version: 1.2.5
+  title: ""
+  date: 2022-11-18T01:34:46.967Z
+- commits:
     - subject: Update dependency mocha to 10.1.0
       hash: 6e489e61c48227e209ba112c42e89ac927d8caf9
       body: |
