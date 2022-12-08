@@ -1,4 +1,18 @@
 - commits:
+    - subject: "Flowzone: Allow external contributions"
+      hash: f01476cad51c61727f706618a18e1e7b32657897
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Josh Bowling <josh@monarci.com>
+        signed-off-by: Josh Bowling <josh@monarci.com>
+      author: Josh Bowling
+      nested: []
+  version: 1.3.1
+  title: ""
+  date: 2022-12-08T01:09:49.570Z
+- commits:
     - subject: Update dependencies
       hash: ed14c48faff14a33234a49f43208d14a8f2bf94f
       body: |
