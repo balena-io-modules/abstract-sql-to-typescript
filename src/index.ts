@@ -7,7 +7,10 @@ import type {
 	RelationshipInternalNode,
 	RelationshipLeafNode,
 } from '@balena/abstract-sql-compiler';
-import { sqlNameToODataName } from '@balena/odata-to-abstract-sql';
+import {
+	odataNameToSqlName,
+	sqlNameToODataName,
+} from '@balena/odata-to-abstract-sql';
 import { replaceResultTransformer, TemplateTag } from 'common-tags';
 
 const typeHelpers = {
@@ -122,6 +125,7 @@ const fieldsToInterfaceProps = (
 const recurseRelationships = (
 	m: AbstractSqlModel,
 	relationships: Relationship,
+	inverseSynonyms: Record<string, string>,
 	opts: RequiredOptions,
 	currentTable: AbstractSqlTable,
 	parentKey: string,
@@ -137,7 +141,14 @@ const recurseRelationships = (
 					const referencedInterface = modelNameToCamelCaseName(
 						referencedTable.name,
 					);
-					return `${parentKey}?: ${referencedInterface}[];`;
+					const propDefinitons = [`${parentKey}?: ${referencedInterface}[];`];
+					const synonym = inverseSynonyms[odataNameToSqlName(parentKey)];
+					if (synonym != null) {
+						propDefinitons.push(
+							`${sqlNameToODataName(synonym)}?: ${referencedInterface}[];`,
+						);
+					}
+					return propDefinitons;
 				}
 			}
 			return [];
@@ -145,6 +156,7 @@ const recurseRelationships = (
 		return recurseRelationships(
 			m,
 			(relationships as RelationshipInternalNode)[key],
+			inverseSynonyms,
 			opts,
 			currentTable,
 			`${parentKey}__${key.replace(/ /g, '_')}`,
@@ -165,9 +177,16 @@ const relationshipsToInterfaceProps = (
 		if (key === 'has') {
 			return [];
 		}
+		const inverseSynonyms = Object.fromEntries(
+			Object.entries(m.synonyms).map(([termForm, factType]) => [
+				factType,
+				termForm,
+			]),
+		);
 		return recurseRelationships(
 			m,
 			relationships[key],
+			inverseSynonyms,
 			opts,
 			table,
 			key.replace(/ /g, '_'),

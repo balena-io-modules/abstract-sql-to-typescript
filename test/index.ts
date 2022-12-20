@@ -167,6 +167,60 @@ const testTable: Partial<AbstractSqlModel> = {
 				},
 			],
 		},
+		'test-has-tag key': {
+			fields: [
+				{
+					dataType: 'Date Time',
+					fieldName: 'created at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'Date Time',
+					fieldName: 'modified at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'ForeignKey',
+					fieldName: 'test',
+					required: true,
+					references: {
+						resourceName: 'test',
+						fieldName: 'id',
+					},
+				},
+				{
+					dataType: 'Short Text',
+					fieldName: 'tag key',
+					required: true,
+				},
+				{
+					dataType: 'Serial',
+					fieldName: 'id',
+					required: true,
+					index: 'PRIMARY KEY',
+				},
+			],
+			primitive: false,
+			name: 'test tag',
+			indexes: [
+				{
+					type: 'UNIQUE',
+					fields: ['test', 'tag key'],
+				},
+			],
+			idField: 'id',
+			resourceName: 'test-has-tag key',
+			triggers: [
+				{
+					when: 'BEFORE',
+					operation: 'UPDATE',
+					level: 'ROW',
+					fnName: 'trigger_update_modified_at',
+				},
+			],
+		},
 	},
 	relationships: {
 		test: {
@@ -176,6 +230,9 @@ const testTable: Partial<AbstractSqlModel> = {
 			has: {
 				parent: {
 					$: ['parent', ['parent', 'id']],
+				},
+				'tag key': {
+					$: ['id', ['test-has-tag key', 'test']],
 				},
 			},
 			references: {
@@ -189,6 +246,11 @@ const testTable: Partial<AbstractSqlModel> = {
 						$: ['id', ['test-references-other', 'test']],
 					},
 				},
+				has: {
+					'tag key': {
+						$: ['id', ['test-has-tag key', 'test']],
+					},
+				},
 			},
 		},
 		other: {
@@ -198,6 +260,22 @@ const testTable: Partial<AbstractSqlModel> = {
 				},
 			},
 		},
+		'test-has-tag key': {
+			test: {
+				$: ['test', ['test', 'id']],
+			},
+			'tag key': {
+				$: ['tag key'],
+			},
+			has: {
+				'tag key': {
+					$: ['tag key'],
+				},
+			},
+		},
+	},
+	synonyms: {
+		'test tag': 'test-has-tag key',
 	},
 };
 
@@ -224,6 +302,16 @@ test(
 			id: number;
 			parent: number;
 			references__other: { __id: number } | [Other];
+			test__has__tag_key?: TestTag[];
+			test_tag?: TestTag[];
+		}
+
+		export interface TestTag {
+			created_at: DateString;
+			modified_at: DateString;
+			test: { __id: number } | [Test];
+			tag_key: string;
+			id: number;
 		}
 	`,
 );
@@ -250,6 +338,14 @@ test(
 			id: number;
 			parent: number;
 			references__other: number;
+		}
+
+		export interface TestTag {
+			created_at: Date;
+			modified_at: Date;
+			test: number;
+			tag_key: string;
+			id: number;
 		}
 	`,
 	'write',
