@@ -1,4 +1,24 @@
 - commits:
+    - subject: Set minimum supported nodejs version to 16.13.0 and tsconfig to es2021
+      hash: e043b24a03f43a80ff4eb3bd1815d90370b78908
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+    - subject: Treat ConceptType like foreign keys, in line with pinejs 15
+      hash: cb3ab5a5e4a4a1de4bf758dae80be54efa8d11d4
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+  version: 2.0.0
+  title: ""
+  date: 2022-12-20T17:19:02.106Z
+- commits:
     - subject: "Flowzone: Allow external contributions"
       hash: f01476cad51c61727f706618a18e1e7b32657897
       body: ""
