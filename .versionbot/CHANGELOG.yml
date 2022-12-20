@@ -1,4 +1,16 @@
 - commits:
+    - subject: Generate properties for reverse navigation relations using synonyms
+      hash: 105c27e6b5279bd7189df0c8758200ec84997a43
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Thodoris Greasidis
+      nested: []
+  version: 1.4.0
+  title: ""
+  date: 2022-12-20T18:10:06.642Z
+- commits:
     - subject: "Flowzone: Allow external contributions"
       hash: f01476cad51c61727f706618a18e1e7b32657897
       body: ""
