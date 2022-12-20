@@ -15,7 +15,7 @@
   "dependencies": {
     "@balena/abstract-sql-compiler": "^8.4.1",
     "@balena/odata-to-abstract-sql": "^5.9.6",
-    "@types/node": "^12.20.55",
+    "@types/node": "^16.18.25",
     "common-tags": "^1.8.2"
   },
   "devDependencies": {
@@ -29,6 +29,10 @@
     "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=16.13.0",
+    "npm": ">=8.1.0"
   },
   "lint-staged": {
     "*.ts": [
