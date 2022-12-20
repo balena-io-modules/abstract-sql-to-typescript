@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/node to 18.11.17
+      hash: adfa97d41d835b527991d5768203ef64a6f8bf51
+      body: |
+        Update @types/node to 18.11.17
+
+        Update @types/node from 12.20.55 to 18.11.17
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 1.5.0
+  title: ""
+  date: 2022-12-20T18:45:31.132Z
+- commits:
     - subject: Generate properties for reverse navigation relations using synonyms
       hash: 105c27e6b5279bd7189df0c8758200ec84997a43
       body: ""
