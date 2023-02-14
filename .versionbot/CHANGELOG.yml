@@ -1,4 +1,18 @@
 - commits:
+    - subject: Update `abstract-sql-compiler` and `odata-to-abstract-sql`
+      hash: 8f605b533f4c0716b55fcfe3ddfe75316d92da67
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carol Schulze <carol@balena.io>
+        signed-off-by: Carol Schulze <carol@balena.io>
+      author: Carol Schulze
+      nested: []
+  version: 1.4.1
+  title: ""
+  date: 2023-02-14T14:27:09.414Z
+- commits:
     - subject: Generate properties for reverse navigation relations using synonyms
       hash: 105c27e6b5279bd7189df0c8758200ec84997a43
       body: ""
