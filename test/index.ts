@@ -16,6 +16,7 @@ const test = (
 			synonyms: {},
 			tables: {},
 			rules: [],
+			lfInfo: { rules: {} },
 			...model,
 		};
 		const result = abstractSqlToTypescriptTypes(t, { mode });
