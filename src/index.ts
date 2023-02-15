@@ -13,6 +13,11 @@ import {
 } from '@balena/odata-to-abstract-sql';
 import { replaceResultTransformer, TemplateTag } from 'common-tags';
 
+type RequiredModelSubset = Pick<
+	AbstractSqlModel,
+	'tables' | 'relationships' | 'synonyms'
+>;
+
 const typeHelpers = {
 	read: `
 export type DateString = string;
@@ -39,7 +44,7 @@ const modelNameToCamelCaseName = (s: string): string =>
 		.join('');
 
 const getReferencedDataType = (
-	m: AbstractSqlModel,
+	m: RequiredModelSubset,
 	{ references }: AbstractSqlField,
 	opts: RequiredOptions,
 ): string => {
@@ -55,7 +60,7 @@ const getReferencedDataType = (
 };
 
 const sqlTypeToTypescriptType = (
-	m: AbstractSqlModel,
+	m: RequiredModelSubset,
 	f: AbstractSqlField,
 	opts: RequiredOptions,
 ): string => {
@@ -109,7 +114,7 @@ const sqlTypeToTypescriptType = (
 };
 
 const fieldsToInterfaceProps = (
-	m: AbstractSqlModel,
+	m: RequiredModelSubset,
 	fields: AbstractSqlField[],
 	opts: RequiredOptions,
 ): string[] =>
@@ -123,7 +128,7 @@ const fieldsToInterfaceProps = (
 	});
 
 const recurseRelationships = (
-	m: AbstractSqlModel,
+	m: RequiredModelSubset,
 	relationships: Relationship,
 	inverseSynonyms: Record<string, string>,
 	opts: RequiredOptions,
@@ -164,7 +169,7 @@ const recurseRelationships = (
 	});
 
 const relationshipsToInterfaceProps = (
-	m: AbstractSqlModel,
+	m: RequiredModelSubset,
 	table: AbstractSqlTable,
 	opts: RequiredOptions,
 ): string[] => {
@@ -195,7 +200,7 @@ const relationshipsToInterfaceProps = (
 };
 
 const tableToInterface = (
-	m: AbstractSqlModel,
+	m: RequiredModelSubset,
 	table: AbstractSqlTable,
 	opts: RequiredOptions,
 ) => {
@@ -217,7 +222,7 @@ export interface Options {
 type RequiredOptions = Required<Options>;
 
 export const abstractSqlToTypescriptTypes = (
-	m: AbstractSqlModel,
+	m: RequiredModelSubset,
 	opts: Options = {},
 ): string => {
 	const mode = opts.mode ?? 'read';
