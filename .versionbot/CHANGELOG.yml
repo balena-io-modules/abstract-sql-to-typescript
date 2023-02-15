@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update typings to the minimal subset of the abstract sql model we need
+      hash: 7f44648fe2bde3c85914c53cdaec448321f5ffca
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 1.4.2
+  title: ""
+  date: 2023-02-15T13:37:18.042Z
+- commits:
     - subject: Update `abstract-sql-compiler` and `odata-to-abstract-sql`
       hash: 8f605b533f4c0716b55fcfe3ddfe75316d92da67
       body: ""
