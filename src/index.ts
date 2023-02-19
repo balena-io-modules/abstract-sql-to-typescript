@@ -102,6 +102,7 @@ const sqlTypeToTypescriptType = (
 		case 'File':
 			return 'Buffer';
 		case 'JSON':
+		case 'WebResource':
 			return '{}';
 		default:
 			throw new Error(`Unknown data type: '${f.dataType}'`);
