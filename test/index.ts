@@ -136,6 +136,11 @@ const testTable: Partial<AbstractSqlModel> = {
 					index: 'PRIMARY KEY',
 				},
 				{
+					dataType: 'Date',
+					fieldName: 'a_date',
+					required: true,
+				},
+				{
 					dataType: 'ConceptType',
 					fieldName: 'parent',
 					required: true,
@@ -301,6 +306,7 @@ test(
 			created_at: DateString;
 			modified_at: DateString;
 			id: number;
+			a_date: DateString;
 			parent: number;
 			references__other: { __id: number } | [Other];
 			test__has__tag_key?: TestTag[];
@@ -337,6 +343,7 @@ test(
 			created_at: Date;
 			modified_at: Date;
 			id: number;
+			a_date: Date;
 			parent: number;
 			references__other: number;
 		}
