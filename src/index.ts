@@ -83,6 +83,7 @@ const sqlTypeToTypescriptType = (
 		case 'Text':
 		case 'Hashed':
 			return 'string';
+		case 'Date':
 		case 'Date Time':
 			return opts.mode === 'read' ? 'DateString' : 'Date';
 		case 'Serial':
