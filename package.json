@@ -13,7 +13,7 @@
   "repository": "https://github.com/balena-io-modules/abstract-sql-to-typescript.git",
   "author": "",
   "dependencies": {
-    "@balena/abstract-sql-compiler": "^9.0.0",
+    "@balena/abstract-sql-compiler": "^9.0.3",
     "@balena/odata-to-abstract-sql": "^5.9.6",
     "@types/node": "^16.18.25",
     "common-tags": "^1.8.2"

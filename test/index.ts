@@ -32,6 +32,13 @@ const test = (
 			export type PickDeferred<T, K extends keyof T> = {
 				[P in K]: Deferred<T[P]>;
 			};
+			export interface WebResource {
+				filename: string;
+				href: string;
+				content_type?: string;
+				content_disposition?: string;
+				size?: number;
+			};
 
 			${expectation}
 		`);
@@ -138,6 +145,11 @@ const testTable: Partial<AbstractSqlModel> = {
 				{
 					dataType: 'Date',
 					fieldName: 'a_date',
+					required: true,
+				},
+				{
+					dataType: 'WebResource',
+					fieldName: 'a_file',
 					required: true,
 				},
 				{
@@ -307,6 +319,7 @@ test(
 			modified_at: DateString;
 			id: number;
 			a_date: DateString;
+			a_file: WebResource;
 			parent: { __id: number } | [Parent];
 			references__other: { __id: number } | [Other];
 			test__has__tag_key?: TestTag[];
@@ -344,6 +357,7 @@ test(
 			modified_at: Date;
 			id: number;
 			a_date: Date;
+			a_file: WebResource;
 			parent: number;
 			references__other: number;
 		}
