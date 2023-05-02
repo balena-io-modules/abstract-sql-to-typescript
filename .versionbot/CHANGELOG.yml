@@ -1,4 +1,33 @@
 - commits:
+    - subject: Update @balena/abstract-sql-compiler to 9.x
+      hash: b8b894679b4d333c5c3ff9340f8bd2696f418ca4
+      body: |
+        Update @balena/abstract-sql-compiler from 8.4.1 to 9.0.0
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+    - subject: Set minimum supported nodejs version to 16.13.0 and tsconfig to es2021
+      hash: b5c654d5d916069f7364adf8bce65627e345f6c2
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+    - subject: Treat ConceptType like foreign keys, in line with pinejs 15
+      hash: 9563e8a332331e4da6347da27be77a121ede2169
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+  version: 2.0.0
+  title: ""
+  date: 2023-05-02T12:03:24.262Z
+- commits:
     - subject: Update dependencies
       hash: 72ae6d01ce70fbd47056042399c4d07f50e9a636
       body: |
