@@ -10,7 +10,7 @@
 		"strictNullChecks": true,
 		"declaration": true,
 		"skipLibCheck": true,
-		"target": "es2019",
+		"target": "es2021",
 		"outDir": "out",
 		"resolveJsonModule": true
 	},

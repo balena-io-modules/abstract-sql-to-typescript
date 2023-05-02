@@ -307,7 +307,7 @@ test(
 			modified_at: DateString;
 			id: number;
 			a_date: DateString;
-			parent: number;
+			parent: { __id: number } | [Parent];
 			references__other: { __id: number } | [Other];
 			test__has__tag_key?: TestTag[];
 			test_tag?: TestTag[];

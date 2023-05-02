@@ -92,8 +92,6 @@ const sqlTypeToTypescriptType = (
 		case 'Real':
 			return 'number';
 		case 'ConceptType':
-			// ConceptType should really act the same as a foreign key but as of pinejs 14 it is mistakenly treated as a local field
-			return getReferencedDataType(m, f, opts);
 		case 'ForeignKey':
 			const referencedDataType = getReferencedDataType(m, f, opts);
 			if (opts.mode === 'write') {
