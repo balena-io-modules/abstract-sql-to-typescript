@@ -1,4 +1,16 @@
 - commits:
+    - subject: Adds webresource typing generation
+      hash: eb7e7c3a3eb1471f153c12c5bec6c06290ead596
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Otávio Jacobi
+      nested: []
+  version: 2.1.0
+  title: ""
+  date: 2023-08-10T14:21:27.827Z
+- commits:
     - subject: Update @balena/abstract-sql-compiler to 9.x
       hash: b8b894679b4d333c5c3ff9340f8bd2696f418ca4
       body: |
