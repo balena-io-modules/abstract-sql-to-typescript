@@ -114,7 +114,7 @@ const sqlTypeToTypescriptType = (
 		case 'File':
 			return 'Buffer';
 		case 'JSON':
-			return '{}';
+			return 'object';
 		case 'WebResource':
 			return 'WebResource';
 		default:
