@@ -99,7 +99,7 @@ const sqlTypeToTypescriptType = (
 		case 'Real':
 			return 'number';
 		case 'ConceptType':
-		case 'ForeignKey':
+		case 'ForeignKey': {
 			const referencedDataType = getReferencedDataType(m, f, opts);
 			if (opts.mode === 'write') {
 				return referencedDataType;
@@ -110,10 +110,11 @@ const sqlTypeToTypescriptType = (
 			);
 			const nullable = f.required ? '' : '?';
 			return `{ __id: ${referencedDataType} } | [${referencedInterface}${nullable}]`;
+		}
 		case 'File':
 			return 'Buffer';
 		case 'JSON':
-			return '{}';
+			return 'object';
 		case 'WebResource':
 			return 'WebResource';
 		default:
