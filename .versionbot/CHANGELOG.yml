@@ -1,4 +1,29 @@
 - commits:
+    - subject: Type JSON fields as object rather than {}
+      hash: 113120528709cc6dc6b04da8e6c261747fd6858c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        See: https://devblogs.microsoft.com/typescript/announcing-typescript-4-8/#improved-intersection-reduction-union-compatibility-and-narrowing
+        see: https://devblogs.microsoft.com/typescript/announcing-typescript-4-8/#improved-intersection-reduction-union-compatibility-and-narrowing
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Update @balena/lint to 7.0.0
+      hash: 4214bf41def78ea576fb4007f26d08ca460704fe
+      body: |
+        Update @balena/lint from 6.2.2 to 7.0.0
+      footer:
+        Depends-on: https://github.com/balena-io-modules/node-balena-lint/pull/85
+        depends-on: https://github.com/balena-io-modules/node-balena-lint/pull/85
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+  version: 2.1.1
+  title: ""
+  date: 2023-08-22T13:58:29.351Z
+- commits:
     - subject: Adds webresource typing generation
       hash: eb7e7c3a3eb1471f153c12c5bec6c06290ead596
       body: ""

@@ -1,6 +1,6 @@
 {
   "name": "@balena/abstract-sql-to-typescript",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A translator for abstract sql into typescript types.",
   "main": "out/index.js",
   "types": "out/index.d.ts",
@@ -44,6 +44,6 @@
     "_": "test/**/*.ts"
   },
   "versionist": {
-    "publishedAt": "2023-08-10T14:21:28.075Z"
+    "publishedAt": "2023-08-22T13:58:29.591Z"
   }
 }
