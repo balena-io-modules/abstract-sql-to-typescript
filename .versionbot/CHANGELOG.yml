@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/node to v18
+      hash: 15d2c455710b6b68594c3ed6def0ccc1c26ecf51
+      body: |
+        Update @types/node from 16.18.42 to 18.17.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 2.1.2
+  title: ""
+  date: 2023-08-23T19:44:34.641Z
+- commits:
     - subject: Type JSON fields as object rather than {}
       hash: 113120528709cc6dc6b04da8e6c261747fd6858c
       body: ""
