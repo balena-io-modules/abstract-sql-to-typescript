@@ -1,7 +1,8 @@
 import type { AbstractSqlModel } from '@balena/abstract-sql-compiler';
 import { expect } from 'chai';
 import { source } from 'common-tags';
-import { abstractSqlToTypescriptTypes, Options } from '../src';
+import type { Options } from '../src';
+import { abstractSqlToTypescriptTypes } from '../src';
 
 const test = (
 	msg: string,

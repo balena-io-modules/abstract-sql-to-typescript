@@ -8,27 +8,28 @@
     "pretest": "npm run lint && npm run prepare",
     "test": "mocha",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\" && tsc --project ./tsconfig.build.json",
-    "lint": "balena-lint --typescript --fix src test && tsc --noEmit"
+    "lint": "balena-lint src test && tsc --noEmit",
+    "lint-fix": "balena-lint --fix src test"
   },
   "repository": "https://github.com/balena-io-modules/abstract-sql-to-typescript.git",
   "author": "",
   "dependencies": {
-    "@balena/abstract-sql-compiler": "^9.0.3",
-    "@balena/odata-to-abstract-sql": "^5.9.6",
-    "@types/node": "^20.0.0",
+    "@balena/abstract-sql-compiler": "^9.0.4",
+    "@balena/odata-to-abstract-sql": "^6.2.3",
+    "@types/node": "^20.11.24",
     "common-tags": "^1.8.2"
   },
   "devDependencies": {
-    "@balena/lint": "^7.0.0",
-    "@types/chai": "^4.3.4",
-    "@types/common-tags": "^1.8.1",
-    "@types/mocha": "^10.0.1",
-    "chai": "^4.3.7",
+    "@balena/lint": "^7.3.0",
+    "@types/chai": "^4.3.12",
+    "@types/common-tags": "^1.8.4",
+    "@types/mocha": "^10.0.6",
+    "chai": "^4.4.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
-    "mocha": "^10.2.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "lint-staged": "^15.2.2",
+    "mocha": "^10.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=16.13.0",
@@ -36,7 +37,7 @@
   },
   "lint-staged": {
     "*.ts": [
-      "balena-lint --typescript --fix"
+      "balena-lint --fix"
     ]
   },
   "mocha": {
