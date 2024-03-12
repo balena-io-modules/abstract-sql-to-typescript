@@ -18,6 +18,13 @@ type RequiredModelSubset = Pick<
 	'tables' | 'relationships' | 'synonyms'
 >;
 
+const webResource = `export interface WebResource {
+	filename: string;
+	href: string;
+	content_type?: string;
+	content_disposition?: string;
+	size?: number;
+};`;
 const typeHelpers = {
 	read: `
 export type DateString = string;
@@ -29,15 +36,11 @@ export type Deferred<T> = Exclude<T, any[]>;
 export type PickDeferred<T, K extends keyof T> = {
 	[P in K]: Deferred<T[P]>;
 };
-export interface WebResource {
-	filename: string;
-	href: string;
-	content_type?: string;
-	content_disposition?: string;
-	size?: number;
-};
+${webResource}
 `,
-	write: '',
+	write: `
+${webResource}
+`,
 };
 
 const trimNL = new TemplateTag(
