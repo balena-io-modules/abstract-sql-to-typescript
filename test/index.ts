@@ -44,7 +44,17 @@ const test = (
 			${expectation}
 		`);
 		} else {
-			expect(result).to.equal(expectation);
+			expect(result).to.equal(source`
+				export interface WebResource {
+					filename: string;
+					href: string;
+					content_type?: string;
+					content_disposition?: string;
+					size?: number;
+				};
+
+				${expectation}
+			`);
 		}
 	});
 };
