@@ -44,7 +44,13 @@ const test = (
 			${expectation}
 		`);
 		} else {
-			expect(result).to.equal(expectation);
+			expect(result).to.equal(source`
+				export interface WebResourceWrite extends Blob {
+					name: string;
+				};
+
+				${expectation}
+			`);
 		}
 	});
 };
@@ -358,7 +364,7 @@ test(
 			modified_at: Date;
 			id: number;
 			a_date: Date;
-			a_file: WebResource;
+			a_file: WebResourceWrite;
 			parent: number;
 			references__other: number;
 		}

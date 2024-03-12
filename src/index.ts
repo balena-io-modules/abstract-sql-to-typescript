@@ -37,7 +37,11 @@ export interface WebResource {
 	size?: number;
 };
 `,
-	write: '',
+	write: `
+export interface WebResourceWrite extends Blob {
+	name: string;
+};
+`,
 };
 
 const trimNL = new TemplateTag(
@@ -116,7 +120,7 @@ const sqlTypeToTypescriptType = (
 		case 'JSON':
 			return 'object';
 		case 'WebResource':
-			return 'WebResource';
+			return opts.mode === 'read' ? 'WebResource' : 'WebResourceWrite';
 		default:
 			throw new Error(`Unknown data type: '${f.dataType}'`);
 	}
