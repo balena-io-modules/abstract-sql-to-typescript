@@ -108,8 +108,7 @@ const sqlTypeToTypescriptType = (
 			const referencedInterface = modelNameToCamelCaseName(
 				m.tables[f.references!.resourceName].name,
 			);
-			const nullable = f.required ? '' : '?';
-			return `{ __id: ${referencedDataType} } | [${referencedInterface}${nullable}]`;
+			return `{ __id: ${referencedDataType}${f.required ? '' : ' | null'} } | [${referencedInterface}${f.required ? '' : '?'}]`;
 		}
 		case 'File':
 			return 'Buffer';
