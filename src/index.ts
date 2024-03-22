@@ -1,3 +1,14 @@
+export type { Types } from '@balena/sbvr-types';
+
+export type Expanded<T> = Extract<T, any[]>;
+export type PickExpanded<T, K extends keyof T> = {
+	[P in K]-?: Expanded<T[P]>;
+};
+export type Deferred<T> = Exclude<T, any[]>;
+export type PickDeferred<T, K extends keyof T> = {
+	[P in K]: Deferred<T[P]>;
+};
+
 import type {
 	AbstractSqlField,
 	AbstractSqlModel,
@@ -19,25 +30,8 @@ type RequiredModelSubset = Pick<
 >;
 
 const typeHelpers = {
-	read: `
-export type DateString = string;
-export type Expanded<T> = Extract<T, any[]>;
-export type PickExpanded<T, K extends keyof T> = {
-	[P in K]-?: Expanded<T[P]>;
-};
-export type Deferred<T> = Exclude<T, any[]>;
-export type PickDeferred<T, K extends keyof T> = {
-	[P in K]: Deferred<T[P]>;
-};
-export interface WebResource {
-	filename: string;
-	href: string;
-	content_type?: string;
-	content_disposition?: string;
-	size?: number;
-};
-`,
-	write: '',
+	read: `import type { Types } from '@balena/abstract-sql-to-typescript';\n`,
+	write: `import type { Types } from '@balena/abstract-sql-to-typescript';\n`,
 };
 
 const trimNL = new TemplateTag(
@@ -49,27 +43,12 @@ const modelNameToCamelCaseName = (s: string): string =>
 		.split(/[ -]/)
 		.map((p) => p[0].toLocaleUpperCase() + p.slice(1))
 		.join('');
-
-const getReferencedDataType = (
-	m: RequiredModelSubset,
-	{ references }: AbstractSqlField,
-	opts: RequiredOptions,
-): string => {
-	if (references != null) {
-		const referencedField = m.tables[references.resourceName].fields.find(
-			(f) => f.fieldName === references.fieldName,
-		);
-		if (referencedField != null) {
-			return sqlTypeToTypescriptType(m, referencedField, opts);
-		}
-	}
-	return 'number';
-};
+const getReferencedInterface = (modelName: string) =>
+	`${modelNameToCamelCaseName(modelName)}<M>`;
 
 const sqlTypeToTypescriptType = (
 	m: RequiredModelSubset,
 	f: AbstractSqlField,
-	opts: RequiredOptions,
 ): string => {
 	if (!['ForeignKey', 'ConceptType'].includes(f.dataType) && f.checks) {
 		const inChecks = f.checks.find(
@@ -84,54 +63,30 @@ const sqlTypeToTypescriptType = (
 	}
 
 	switch (f.dataType) {
-		case 'Boolean':
-			return 'boolean';
-		case 'Short Text':
-		case 'Text':
-		case 'Hashed':
-			return 'string';
-		case 'Date':
-		case 'Date Time':
-			return opts.mode === 'read' ? 'DateString' : 'Date';
-		case 'Serial':
-		case 'Integer':
-		case 'Big Integer':
-		case 'Real':
-			return 'number';
 		case 'ConceptType':
 		case 'ForeignKey': {
-			const referencedDataType = getReferencedDataType(m, f, opts);
-			if (opts.mode === 'write') {
-				return referencedDataType;
-			}
-
-			const referencedInterface = modelNameToCamelCaseName(
+			const referencedInterface = getReferencedInterface(
+				// TODO: Can `f.references` ever be null for these types?
 				m.tables[f.references!.resourceName].name,
 			);
-			return `{ __id: ${referencedDataType}${f.required ? '' : ' | null'} } | [${referencedInterface}${f.required ? '' : '?'}]`;
+			const referencedFieldType = `${referencedInterface}['${f.references!.fieldName}']`;
+
+			return `M extends 'Read' ? { __id: ${referencedFieldType}${f.required ? '' : ' | null'} } | [${referencedInterface}${f.required ? '' : '?'}] : ${referencedFieldType}`;
 		}
-		case 'File':
-			return 'Buffer';
-		case 'JSON':
-			return 'object';
-		case 'WebResource':
-			return 'WebResource';
 		default:
-			throw new Error(`Unknown data type: '${f.dataType}'`);
+			return `Types['${f.dataType}'][M]`;
 	}
 };
 
 const fieldsToInterfaceProps = (
 	m: RequiredModelSubset,
 	fields: AbstractSqlField[],
-	opts: RequiredOptions,
 ): string[] =>
 	fields.map((f) => {
 		const nullable = f.required ? '' : ' | null';
 		return `${sqlNameToODataName(f.fieldName)}: ${sqlTypeToTypescriptType(
 			m,
 			f,
-			opts,
 		)}${nullable};`;
 	});
 
@@ -139,7 +94,6 @@ const recurseRelationships = (
 	m: RequiredModelSubset,
 	relationships: Relationship,
 	inverseSynonyms: Record<string, string>,
-	opts: RequiredOptions,
 	currentTable: AbstractSqlTable,
 	parentKey: string,
 ): string[] =>
@@ -151,14 +105,14 @@ const recurseRelationships = (
 			if (currentTable.idField === localField && referencedField != null) {
 				const referencedTable = m.tables[referencedField[0]];
 				if (referencedTable != null) {
-					const referencedInterface = modelNameToCamelCaseName(
+					const referencedInterface = getReferencedInterface(
 						referencedTable.name,
 					);
 					const propDefinitons = [`${parentKey}?: ${referencedInterface}[];`];
 					const synonym = inverseSynonyms[odataNameToSqlName(parentKey)];
 					if (synonym != null) {
 						propDefinitons.push(
-							`${sqlNameToODataName(synonym)}?: ${referencedInterface}[];`,
+							`${sqlNameToODataName(synonym)}?: M extends 'Read' ? ${referencedInterface}[] : undefined;`,
 						);
 					}
 					return propDefinitons;
@@ -170,7 +124,6 @@ const recurseRelationships = (
 			m,
 			(relationships as RelationshipInternalNode)[key],
 			inverseSynonyms,
-			opts,
 			currentTable,
 			`${parentKey}__${key.replace(/ /g, '_')}`,
 		);
@@ -179,7 +132,6 @@ const recurseRelationships = (
 const relationshipsToInterfaceProps = (
 	m: RequiredModelSubset,
 	table: AbstractSqlTable,
-	opts: RequiredOptions,
 ): string[] => {
 	const relationships = m.relationships[table.resourceName];
 	if (relationships == null) {
@@ -200,7 +152,6 @@ const relationshipsToInterfaceProps = (
 			m,
 			relationships[key],
 			inverseSynonyms,
-			opts,
 			table,
 			key.replace(/ /g, '_'),
 		);
@@ -213,18 +164,19 @@ const tableToInterface = (
 	opts: RequiredOptions,
 ) => {
 	const relationshipProps =
-		opts.mode === 'read' ? relationshipsToInterfaceProps(m, table, opts) : [];
+		// TODO: This should be a runtime selection not generation time
+		opts.mode === 'read' ? relationshipsToInterfaceProps(m, table) : [];
 
 	return trimNL`
-export interface ${modelNameToCamelCaseName(table.name)} {
-	${[...fieldsToInterfaceProps(m, table.fields, opts), ...relationshipProps].join(
+export interface ${modelNameToCamelCaseName(table.name)}<M extends 'Read' | 'Write'> {
+	${[...fieldsToInterfaceProps(m, table.fields), ...relationshipProps].join(
 		'\n\t',
 	)}
 }
 `;
 };
 
-export interface Options {
+interface Options {
 	mode?: 'read' | 'write';
 }
 type RequiredOptions = Required<Options>;

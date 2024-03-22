@@ -1,14 +1,13 @@
 import type { AbstractSqlModel } from '@balena/abstract-sql-compiler';
 import { expect } from 'chai';
 import { source } from 'common-tags';
-import type { Options } from '../src';
 import { abstractSqlToTypescriptTypes } from '../src';
 
 const test = (
 	msg: string,
 	model: Partial<AbstractSqlModel>,
 	expectation: string,
-	mode?: Options['mode'],
+	mode?: 'read' | 'write',
 ) => {
 	it(`should generate ${msg}`, () => {
 		// Set defaults for required props
@@ -24,27 +23,16 @@ const test = (
 
 		if (mode == null || mode === 'read') {
 			expect(result).to.equal(source`
-			export type DateString = string;
-			export type Expanded<T> = Extract<T, any[]>;
-			export type PickExpanded<T, K extends keyof T> = {
-				[P in K]-?: Expanded<T[P]>;
-			};
-			export type Deferred<T> = Exclude<T, any[]>;
-			export type PickDeferred<T, K extends keyof T> = {
-				[P in K]: Deferred<T[P]>;
-			};
-			export interface WebResource {
-				filename: string;
-				href: string;
-				content_type?: string;
-				content_disposition?: string;
-				size?: number;
-			};
+				import type { DateString, WebResource } from '@balena/abstract-sql-to-typescript';
 
-			${expectation}
-		`);
+				${expectation}
+			`);
 		} else {
-			expect(result).to.equal(expectation);
+			expect(result).to.equal(source`
+				import type { WebResource } from '@balena/abstract-sql-to-typescript';
+
+				${expectation}
+			`);
 		}
 	});
 };
