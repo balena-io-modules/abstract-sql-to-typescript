@@ -94,6 +94,7 @@ const sqlTypeToTypescriptType = (
 		case 'Date Time':
 			return opts.mode === 'read' ? 'DateString' : 'Date';
 		case 'Serial':
+		case 'Big Serial':
 		case 'Integer':
 		case 'Big Integer':
 		case 'Real':
