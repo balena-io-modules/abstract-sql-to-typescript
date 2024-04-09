@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add support for Big Serial
+      hash: b1d91eea5f28d2724be7c589fc6d6a9b446e9880
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Josh Bowling
+      nested: []
+  version: 2.2.0
+  title: ""
+  date: 2024-04-09T10:02:51.592Z
+- commits:
     - subject: Update prepare script for husky v9
       hash: d2d1970b67a473031dad091c3451b78af9fa13f4
       body: ""
