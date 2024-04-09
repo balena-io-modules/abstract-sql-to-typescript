@@ -7,7 +7,7 @@
   "scripts": {
     "pretest": "npm run lint && npm run prepare",
     "test": "mocha",
-    "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\" && tsc --project ./tsconfig.build.json",
+    "prepare": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module && tsc --project ./tsconfig.build.json",
     "lint": "balena-lint src test && tsc --noEmit",
     "lint-fix": "balena-lint --fix src test"
   },
