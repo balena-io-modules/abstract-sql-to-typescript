@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @balena/lint to v8
+      hash: ebafb1edda286e10394be6e137ac674645537b1a
+      body: |
+        Update @balena/lint from 7.3.0 to 8.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 2.1.5
+  title: ""
+  date: 2024-04-09T01:09:23.010Z
+- commits:
     - subject: Update dependencies
       hash: f5a822492b32f1395633f892c096a93058569441
       body: |
@@ -78,7 +91,8 @@
                       body: >
                         - Update @balena/lint from 6.2.2 to 7.2.4
 
-                        - Delete `require-npm4-to-publish` as handled by `engines` parameter in `package.json`
+                        - Delete `require-npm4-to-publish` as handled by
+                        `engines` parameter in `package.json`
                       footer:
                         Change-type: patch
                         change-type: patch
@@ -389,9 +403,11 @@
                                         Ensure that the input passed in for JSON
                                         types is either an object or
 
-                                        an array (typeof returns 'object' for arrays as well). This change is
+                                        an array (typeof returns 'object' for
+                                        arrays as well). This change is
 
-                                        mainly to prevent primitives from being stored as JSON.
+                                        mainly to prevent primitives from being
+                                        stored as JSON.
                                       footer:
                                         Change-type: major
                                         change-type: major
@@ -531,7 +547,8 @@
                                         We know what type they return and they
                                         should be explicitly accepted as
 
-                                        those types instead where it is valid to do so
+                                        those types instead where it is valid to
+                                        do so
                                       footer:
                                         Change-type: patch
                                         change-type: patch
@@ -939,9 +956,11 @@
                                 Ensure that the input passed in for JSON types
                                 is either an object or
 
-                                an array (typeof returns 'object' for arrays as well). This change is
+                                an array (typeof returns 'object' for arrays as
+                                well). This change is
 
-                                mainly to prevent primitives from being stored as JSON.
+                                mainly to prevent primitives from being stored
+                                as JSON.
                               footer:
                                 Change-type: major
                                 change-type: major
@@ -1069,9 +1088,11 @@
                                 Ensure that the input passed in for JSON types
                                 is either an object or
 
-                                an array (typeof returns 'object' for arrays as well). This change is
+                                an array (typeof returns 'object' for arrays as
+                                well). This change is
 
-                                mainly to prevent primitives from being stored as JSON.
+                                mainly to prevent primitives from being stored
+                                as JSON.
                               footer:
                                 Change-type: major
                                 change-type: major
@@ -1309,7 +1330,8 @@
                         Ensure that the input passed in for JSON types is either
                         an object or
 
-                        an array (typeof returns 'object' for arrays as well). This change is
+                        an array (typeof returns 'object' for arrays as well).
+                        This change is
 
                         mainly to prevent primitives from being stored as JSON.
                       footer:
@@ -1966,7 +1988,8 @@
                         if operands in expression can be used as numericValues.
 
 
-                        In SQL statements arithmetic expressions like add/sub are supported for date values.
+                        In SQL statements arithmetic expressions like add/sub
+                        are supported for date values.
 
                         DateArithmetic nodes need input dependent typing.
                       footer:
@@ -2387,12 +2410,15 @@
                         'informative'.
 
 
-                        Behaviour change only if type is informative otherwise default 'strict'.
+                        Behaviour change only if type is informative otherwise
+                        default 'strict'.
 
 
-                        An informative reference is just an int field that points
+                        An informative reference is just an int field that
+                        points
 
-                        to another tables id field - like foreign key without constraints
+                        to another tables id field - like foreign key without
+                        constraints
 
                         or foregein key cascades.
                       footer:
@@ -2412,7 +2438,8 @@
                         Since it's possible for them to behave in a way that
                         violates the
 
-                        safety checks we'll disable them until we can add specific checks
+                        safety checks we'll disable them until we can add
+                        specific checks
 
                         for the HAVING clause
                       footer:
@@ -2662,7 +2689,8 @@
                         This became unnecessary when @balena/sbvr-types added
                         the concept of
 
-                        cast types since that now specifies how to cast a SERIAL type
+                        cast types since that now specifies how to cast a SERIAL
+                        type
                       footer:
                         Change-type: patch
                         change-type: patch
@@ -2827,7 +2855,8 @@
                         This works on the assumption that it is a rule query
                         that should always
 
-                        return true and allows ignoring more modification cases where they
+                        return true and allows ignoring more modification cases
+                        where they
 
                         cannot change the result from true to false
                       footer:
