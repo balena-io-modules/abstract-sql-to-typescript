@@ -20,7 +20,7 @@
     "common-tags": "^1.8.2"
   },
   "devDependencies": {
-    "@balena/lint": "^7.3.0",
+    "@balena/lint": "^8.0.0",
     "@types/chai": "^4.3.12",
     "@types/common-tags": "^1.8.4",
     "@types/mocha": "^10.0.6",
