@@ -30,7 +30,7 @@ const test = (
 				[P in K]-?: Expanded<T[P]>;
 			};
 			export type Deferred<T> = Exclude<T, any[]>;
-			export type PickDeferred<T, K extends keyof T> = {
+			export type PickDeferred<T, K extends keyof T = keyof T> = {
 				[P in K]: Deferred<T[P]>;
 			};
 			export interface WebResource {
