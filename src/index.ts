@@ -50,22 +50,6 @@ const modelNameToCamelCaseName = (s: string): string =>
 		.map((p) => p[0].toLocaleUpperCase() + p.slice(1))
 		.join('');
 
-const getReferencedDataType = (
-	m: RequiredModelSubset,
-	{ references }: AbstractSqlField,
-	opts: RequiredOptions,
-): string => {
-	if (references != null) {
-		const referencedField = m.tables[references.resourceName].fields.find(
-			(f) => f.fieldName === references.fieldName,
-		);
-		if (referencedField != null) {
-			return sqlTypeToTypescriptType(m, referencedField, opts);
-		}
-	}
-	return 'number';
-};
-
 const sqlTypeToTypescriptType = (
 	m: RequiredModelSubset,
 	f: AbstractSqlField,
@@ -101,16 +85,16 @@ const sqlTypeToTypescriptType = (
 			return 'number';
 		case 'ConceptType':
 		case 'ForeignKey': {
-			const referencedDataType = getReferencedDataType(m, f, opts);
-			if (opts.mode === 'write') {
-				return referencedDataType;
-			}
-
 			const referencedInterface = modelNameToCamelCaseName(
 				m.tables[f.references!.resourceName].name,
 			);
+			const referencedFieldType = `${referencedInterface}['${f.references!.fieldName}']`;
+			if (opts.mode === 'write') {
+				return referencedFieldType;
+			}
+
 			const nullable = f.required ? '' : '?';
-			return `{ __id: ${referencedDataType} } | [${referencedInterface}${nullable}]`;
+			return `{ __id: ${referencedFieldType} } | [${referencedInterface}${nullable}]`;
 		}
 		case 'File':
 			return 'Buffer';
