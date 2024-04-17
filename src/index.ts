@@ -22,7 +22,7 @@ const typeHelpers = {
 	read: `
 export type DateString = string;
 export type Expanded<T> = Extract<T, any[]>;
-export type PickExpanded<T, K extends keyof T> = {
+export type PickExpanded<T, K extends keyof T = keyof T> = {
 	[P in K]-?: Expanded<T[P]>;
 };
 export type Deferred<T> = Exclude<T, any[]>;
