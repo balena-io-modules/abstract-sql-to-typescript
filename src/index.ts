@@ -18,8 +18,7 @@ type RequiredModelSubset = Pick<
 	'tables' | 'relationships' | 'synonyms'
 >;
 
-const typeHelpers = {
-	read: `
+const typeHelpers = `
 export type DateString = string;
 export type Expanded<T> = Extract<T, any[]>;
 export type PickExpanded<T, K extends keyof T = keyof T> = {
@@ -36,9 +35,7 @@ export interface WebResource {
 	content_disposition?: string;
 	size?: number;
 };
-`,
-	write: '',
-};
+`;
 
 const trimNL = new TemplateTag(
 	replaceResultTransformer(/^[\r\n]*|[\r\n]*$/g, ''),
@@ -50,10 +47,13 @@ const modelNameToCamelCaseName = (s: string): string =>
 		.map((p) => p[0].toLocaleUpperCase() + p.slice(1))
 		.join('');
 
+const getReferencedInterface = (modelName: string, mode: Mode) =>
+	`${modelNameToCamelCaseName(modelName)}['${mode}']`;
+
 const sqlTypeToTypescriptType = (
 	m: RequiredModelSubset,
 	f: AbstractSqlField,
-	opts: RequiredOptions,
+	mode: Mode,
 ): string => {
 	if (!['ForeignKey', 'ConceptType'].includes(f.dataType) && f.checks) {
 		const inChecks = f.checks.find(
@@ -76,20 +76,20 @@ const sqlTypeToTypescriptType = (
 			return 'string';
 		case 'Date':
 		case 'Date Time':
-			return opts.mode === 'read' ? 'DateString' : 'Date';
+			return mode === 'Read' ? 'DateString' : 'Date';
 		case 'Serial':
-		case 'Big Serial':
 		case 'Integer':
 		case 'Big Integer':
 		case 'Real':
 			return 'number';
 		case 'ConceptType':
 		case 'ForeignKey': {
-			const referencedInterface = modelNameToCamelCaseName(
+			const referencedInterface = getReferencedInterface(
 				m.tables[f.references!.resourceName].name,
+				mode,
 			);
 			const referencedFieldType = `${referencedInterface}['${f.references!.fieldName}']`;
-			if (opts.mode === 'write') {
+			if (mode === 'Write') {
 				return referencedFieldType;
 			}
 
@@ -110,14 +110,14 @@ const sqlTypeToTypescriptType = (
 const fieldsToInterfaceProps = (
 	m: RequiredModelSubset,
 	fields: AbstractSqlField[],
-	opts: RequiredOptions,
+	mode: Mode,
 ): string[] =>
 	fields.map((f) => {
 		const nullable = f.required ? '' : ' | null';
 		return `${sqlNameToODataName(f.fieldName)}: ${sqlTypeToTypescriptType(
 			m,
 			f,
-			opts,
+			mode,
 		)}${nullable};`;
 	});
 
@@ -125,7 +125,7 @@ const recurseRelationships = (
 	m: RequiredModelSubset,
 	relationships: Relationship,
 	inverseSynonyms: Record<string, string>,
-	opts: RequiredOptions,
+	mode: Mode,
 	currentTable: AbstractSqlTable,
 	parentKey: string,
 ): string[] =>
@@ -137,8 +137,9 @@ const recurseRelationships = (
 			if (currentTable.idField === localField && referencedField != null) {
 				const referencedTable = m.tables[referencedField[0]];
 				if (referencedTable != null) {
-					const referencedInterface = modelNameToCamelCaseName(
+					const referencedInterface = getReferencedInterface(
 						referencedTable.name,
+						mode,
 					);
 					const propDefinitons = [`${parentKey}?: ${referencedInterface}[];`];
 					const synonym = inverseSynonyms[odataNameToSqlName(parentKey)];
@@ -156,7 +157,7 @@ const recurseRelationships = (
 			m,
 			(relationships as RelationshipInternalNode)[key],
 			inverseSynonyms,
-			opts,
+			mode,
 			currentTable,
 			`${parentKey}__${key.replace(/ /g, '_')}`,
 		);
@@ -165,7 +166,7 @@ const recurseRelationships = (
 const relationshipsToInterfaceProps = (
 	m: RequiredModelSubset,
 	table: AbstractSqlTable,
-	opts: RequiredOptions,
+	mode: Mode,
 ): string[] => {
 	const relationships = m.relationships[table.resourceName];
 	if (relationships == null) {
@@ -186,50 +187,40 @@ const relationshipsToInterfaceProps = (
 			m,
 			relationships[key],
 			inverseSynonyms,
-			opts,
+			mode,
 			table,
 			key.replace(/ /g, '_'),
 		);
 	});
 };
 
-const tableToInterface = (
-	m: RequiredModelSubset,
-	table: AbstractSqlTable,
-	opts: RequiredOptions,
-) => {
-	const relationshipProps =
-		opts.mode === 'read' ? relationshipsToInterfaceProps(m, table, opts) : [];
-
+const tableToInterface = (m: RequiredModelSubset, table: AbstractSqlTable) => {
 	return trimNL`
 export interface ${modelNameToCamelCaseName(table.name)} {
-	${[...fieldsToInterfaceProps(m, table.fields, opts), ...relationshipProps].join(
-		'\n\t',
-	)}
+	Read: {
+		${[
+			...fieldsToInterfaceProps(m, table.fields, 'Read'),
+			...relationshipsToInterfaceProps(m, table, 'Read'),
+		].join('\n\t\t')}
+	}
+	Write: {
+		${[...fieldsToInterfaceProps(m, table.fields, 'Write')].join('\n\t\t')}
+	}
 }
 `;
 };
 
-export interface Options {
-	mode?: 'read' | 'write';
-}
-type RequiredOptions = Required<Options>;
+type Mode = 'Read' | 'Write';
 
 export const abstractSqlToTypescriptTypes = (
 	m: RequiredModelSubset,
-	opts: Options = {},
 ): string => {
-	const mode = opts.mode ?? 'read';
-	const requiredOptions: RequiredOptions = {
-		...opts,
-		mode,
-	};
 	return trimNL`
-${typeHelpers[mode]}
+${typeHelpers}
 ${Object.keys(m.tables)
 	.map((tableName) => {
 		const t = m.tables[tableName];
-		return tableToInterface(m, t, requiredOptions);
+		return tableToInterface(m, t);
 	})
 	.join('\n\n')}
 `;

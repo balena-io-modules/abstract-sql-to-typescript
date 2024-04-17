@@ -1,14 +1,12 @@
 import type { AbstractSqlModel } from '@balena/abstract-sql-compiler';
 import { expect } from 'chai';
 import { source } from 'common-tags';
-import type { Options } from '../src';
 import { abstractSqlToTypescriptTypes } from '../src';
 
 const test = (
 	msg: string,
 	model: Partial<AbstractSqlModel>,
 	expectation: string,
-	mode?: Options['mode'],
 ) => {
 	it(`should generate ${msg}`, () => {
 		// Set defaults for required props
@@ -20,10 +18,9 @@ const test = (
 			lfInfo: { rules: {} },
 			...model,
 		};
-		const result = abstractSqlToTypescriptTypes(t, { mode });
+		const result = abstractSqlToTypescriptTypes(t);
 
-		if (mode == null || mode === 'read') {
-			expect(result).to.equal(source`
+		expect(result).to.equal(source`
 			export type DateString = string;
 			export type Expanded<T> = Extract<T, any[]>;
 			export type PickExpanded<T, K extends keyof T = keyof T> = {
@@ -43,9 +40,6 @@ const test = (
 
 			${expectation}
 		`);
-		} else {
-			expect(result).to.equal(expectation);
-		}
 	});
 };
 
@@ -299,77 +293,74 @@ const testTable: Partial<AbstractSqlModel> = {
 };
 
 test(
-	'correct read types for a test table',
+	'correct types for a test table',
 	testTable,
 	source`
 		export interface Parent {
-			created_at: DateString;
-			modified_at: DateString;
-			id: number;
+			Read: {
+				created_at: DateString;
+				modified_at: DateString;
+				id: number;
+			}
+			Write: {
+				created_at: Date;
+				modified_at: Date;
+				id: number;
+			}
 		}
 
 		export interface Other {
-			created_at: DateString;
-			modified_at: DateString;
-			id: number;
-			is_referenced_by__test?: Test[];
+			Read: {
+				created_at: DateString;
+				modified_at: DateString;
+				id: number;
+				is_referenced_by__test?: Test['Read'][];
+			}
+			Write: {
+				created_at: Date;
+				modified_at: Date;
+				id: number;
+			}
 		}
 
 		export interface Test {
-			created_at: DateString;
-			modified_at: DateString;
-			id: number;
-			a_date: DateString;
-			a_file: WebResource;
-			parent: { __id: Parent['id'] } | [Parent];
-			references__other: { __id: Other['id'] } | [Other];
-			test__has__tag_key?: TestTag[];
-			test_tag?: TestTag[];
+			Read: {
+				created_at: DateString;
+				modified_at: DateString;
+				id: number;
+				a_date: DateString;
+				a_file: WebResource;
+				parent: { __id: Parent['Read']['id'] } | [Parent['Read']];
+				references__other: { __id: Other['Read']['id'] } | [Other['Read']];
+				test__has__tag_key?: TestTag['Read'][];
+				test_tag?: TestTag['Read'][];
+			}
+			Write: {
+				created_at: Date;
+				modified_at: Date;
+				id: number;
+				a_date: Date;
+				a_file: WebResource;
+				parent: Parent['Write']['id'];
+				references__other: Other['Write']['id'];
+			}
 		}
 
 		export interface TestTag {
-			created_at: DateString;
-			modified_at: DateString;
-			test: { __id: Test['id'] } | [Test];
-			tag_key: string;
-			id: number;
+			Read: {
+				created_at: DateString;
+				modified_at: DateString;
+				test: { __id: Test['Read']['id'] } | [Test['Read']];
+				tag_key: string;
+				id: number;
+			}
+			Write: {
+				created_at: Date;
+				modified_at: Date;
+				test: Test['Write']['id'];
+				tag_key: string;
+				id: number;
+			}
 		}
 	`,
-);
-
-test(
-	'correct write types for a test table',
-	testTable,
-	source`
-		export interface Parent {
-			created_at: Date;
-			modified_at: Date;
-			id: number;
-		}
-
-		export interface Other {
-			created_at: Date;
-			modified_at: Date;
-			id: number;
-		}
-
-		export interface Test {
-			created_at: Date;
-			modified_at: Date;
-			id: number;
-			a_date: Date;
-			a_file: WebResource;
-			parent: Parent['id'];
-			references__other: Other['id'];
-		}
-
-		export interface TestTag {
-			created_at: Date;
-			modified_at: Date;
-			test: Test['id'];
-			tag_key: string;
-			id: number;
-		}
-	`,
-	'write',
 );
