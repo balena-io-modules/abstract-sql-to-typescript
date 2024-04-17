@@ -21,22 +21,7 @@ const test = (
 		const result = abstractSqlToTypescriptTypes(t);
 
 		expect(result).to.equal(source`
-			export type DateString = string;
-			export type Expanded<T> = Extract<T, any[]>;
-			export type PickExpanded<T, K extends keyof T = keyof T> = {
-				[P in K]-?: Expanded<T[P]>;
-			};
-			export type Deferred<T> = Exclude<T, any[]>;
-			export type PickDeferred<T, K extends keyof T = keyof T> = {
-				[P in K]: Deferred<T[P]>;
-			};
-			export interface WebResource {
-				filename: string;
-				href: string;
-				content_type?: string;
-				content_disposition?: string;
-				size?: number;
-			};
+			import type { Types } from '@balena/abstract-sql-to-typescript';
 
 			${expectation}
 		`);
@@ -298,49 +283,49 @@ test(
 	source`
 		export interface Parent {
 			Read: {
-				created_at: DateString;
-				modified_at: DateString;
-				id: number;
+				created_at: Types['Date Time']['Read'];
+				modified_at: Types['Date Time']['Read'];
+				id: Types['Serial']['Read'];
 			}
 			Write: {
-				created_at: Date;
-				modified_at: Date;
-				id: number;
+				created_at: Types['Date Time']['Write'];
+				modified_at: Types['Date Time']['Write'];
+				id: Types['Serial']['Write'];
 			}
 		}
 
 		export interface Other {
 			Read: {
-				created_at: DateString;
-				modified_at: DateString;
-				id: number;
+				created_at: Types['Date Time']['Read'];
+				modified_at: Types['Date Time']['Read'];
+				id: Types['Serial']['Read'];
 				is_referenced_by__test?: Test['Read'][];
 			}
 			Write: {
-				created_at: Date;
-				modified_at: Date;
-				id: number;
+				created_at: Types['Date Time']['Write'];
+				modified_at: Types['Date Time']['Write'];
+				id: Types['Serial']['Write'];
 			}
 		}
 
 		export interface Test {
 			Read: {
-				created_at: DateString;
-				modified_at: DateString;
-				id: number;
-				a_date: DateString;
-				a_file: WebResource;
+				created_at: Types['Date Time']['Read'];
+				modified_at: Types['Date Time']['Read'];
+				id: Types['Serial']['Read'];
+				a_date: Types['Date']['Read'];
+				a_file: Types['WebResource']['Read'];
 				parent: { __id: Parent['Read']['id'] } | [Parent['Read']];
 				references__other: { __id: Other['Read']['id'] } | [Other['Read']];
 				test__has__tag_key?: TestTag['Read'][];
 				test_tag?: TestTag['Read'][];
 			}
 			Write: {
-				created_at: Date;
-				modified_at: Date;
-				id: number;
-				a_date: Date;
-				a_file: WebResource;
+				created_at: Types['Date Time']['Write'];
+				modified_at: Types['Date Time']['Write'];
+				id: Types['Serial']['Write'];
+				a_date: Types['Date']['Write'];
+				a_file: Types['WebResource']['Write'];
 				parent: Parent['Write']['id'];
 				references__other: Other['Write']['id'];
 			}
@@ -348,18 +333,18 @@ test(
 
 		export interface TestTag {
 			Read: {
-				created_at: DateString;
-				modified_at: DateString;
+				created_at: Types['Date Time']['Read'];
+				modified_at: Types['Date Time']['Read'];
 				test: { __id: Test['Read']['id'] } | [Test['Read']];
-				tag_key: string;
-				id: number;
+				tag_key: Types['Short Text']['Read'];
+				id: Types['Serial']['Read'];
 			}
 			Write: {
-				created_at: Date;
-				modified_at: Date;
+				created_at: Types['Date Time']['Write'];
+				modified_at: Types['Date Time']['Write'];
 				test: Test['Write']['id'];
-				tag_key: string;
-				id: number;
+				tag_key: Types['Short Text']['Write'];
+				id: Types['Serial']['Write'];
 			}
 		}
 	`,

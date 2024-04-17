@@ -1,3 +1,14 @@
+export type { Types } from '@balena/sbvr-types';
+
+export type Expanded<T> = Extract<T, any[]>;
+export type PickExpanded<T, K extends keyof T = keyof T> = {
+	[P in K]-?: Expanded<T[P]>;
+};
+export type Deferred<T> = Exclude<T, any[]>;
+export type PickDeferred<T, K extends keyof T = keyof T> = {
+	[P in K]: Deferred<T[P]>;
+};
+
 import type {
 	AbstractSqlField,
 	AbstractSqlModel,
@@ -18,24 +29,7 @@ type RequiredModelSubset = Pick<
 	'tables' | 'relationships' | 'synonyms'
 >;
 
-const typeHelpers = `
-export type DateString = string;
-export type Expanded<T> = Extract<T, any[]>;
-export type PickExpanded<T, K extends keyof T = keyof T> = {
-	[P in K]-?: Expanded<T[P]>;
-};
-export type Deferred<T> = Exclude<T, any[]>;
-export type PickDeferred<T, K extends keyof T = keyof T> = {
-	[P in K]: Deferred<T[P]>;
-};
-export interface WebResource {
-	filename: string;
-	href: string;
-	content_type?: string;
-	content_disposition?: string;
-	size?: number;
-};
-`;
+const typeHelpers = `import type { Types } from '@balena/abstract-sql-to-typescript';\n`;
 
 const trimNL = new TemplateTag(
 	replaceResultTransformer(/^[\r\n]*|[\r\n]*$/g, ''),
@@ -68,20 +62,6 @@ const sqlTypeToTypescriptType = (
 	}
 
 	switch (f.dataType) {
-		case 'Boolean':
-			return 'boolean';
-		case 'Short Text':
-		case 'Text':
-		case 'Hashed':
-			return 'string';
-		case 'Date':
-		case 'Date Time':
-			return mode === 'Read' ? 'DateString' : 'Date';
-		case 'Serial':
-		case 'Integer':
-		case 'Big Integer':
-		case 'Real':
-			return 'number';
 		case 'ConceptType':
 		case 'ForeignKey': {
 			const referencedInterface = getReferencedInterface(
@@ -96,14 +76,8 @@ const sqlTypeToTypescriptType = (
 			const nullable = f.required ? '' : '?';
 			return `{ __id: ${referencedFieldType} } | [${referencedInterface}${nullable}]`;
 		}
-		case 'File':
-			return 'Buffer';
-		case 'JSON':
-			return 'object';
-		case 'WebResource':
-			return 'WebResource';
 		default:
-			throw new Error(`Unknown data type: '${f.dataType}'`);
+			return `Types['${f.dataType}']['${mode}']`;
 	}
 };
 

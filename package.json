@@ -16,6 +16,7 @@
   "dependencies": {
     "@balena/abstract-sql-compiler": "^9.0.4",
     "@balena/odata-to-abstract-sql": "^6.2.3",
+    "@balena/sbvr-types": "^7.1.0",
     "@types/node": "^20.11.24",
     "common-tags": "^1.8.2"
   },
