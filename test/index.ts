@@ -321,8 +321,8 @@ test(
 			id: number;
 			a_date: DateString;
 			a_file: WebResource;
-			parent: { __id: number } | [Parent];
-			references__other: { __id: number } | [Other];
+			parent: { __id: Parent['id'] } | [Parent];
+			references__other: { __id: Other['id'] } | [Other];
 			test__has__tag_key?: TestTag[];
 			test_tag?: TestTag[];
 		}
@@ -330,7 +330,7 @@ test(
 		export interface TestTag {
 			created_at: DateString;
 			modified_at: DateString;
-			test: { __id: number } | [Test];
+			test: { __id: Test['id'] } | [Test];
 			tag_key: string;
 			id: number;
 		}
@@ -359,14 +359,14 @@ test(
 			id: number;
 			a_date: Date;
 			a_file: WebResource;
-			parent: number;
-			references__other: number;
+			parent: Parent['id'];
+			references__other: Other['id'];
 		}
 
 		export interface TestTag {
 			created_at: Date;
 			modified_at: Date;
-			test: number;
+			test: Test['id'];
 			tag_key: string;
 			id: number;
 		}
