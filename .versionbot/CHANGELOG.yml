@@ -1,4 +1,16 @@
 - commits:
+    - subject: Improve foreign key typings by referencing the appropriate interface
+      hash: 2be23a8ad8a051bac1c52c0ca0b99c30e8c114d1
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+  version: 2.4.0
+  title: ""
+  date: 2024-04-19T15:06:30.962Z
+- commits:
     - subject: Allow using `PickDeferred` with a single parameter to defer all keys
       hash: 60b4233b03c1ec25165b800de1fd9bd31158cfca
       body: ""
