@@ -115,11 +115,13 @@ const recurseRelationships = (
 						referencedTable.name,
 						mode,
 					);
-					const propDefinitons = [`${parentKey}?: ${referencedInterface}[];`];
+					const propDefinitons = [
+						`${parentKey}?: Array<${referencedInterface}>;`,
+					];
 					const synonym = inverseSynonyms[odataNameToSqlName(parentKey)];
 					if (synonym != null) {
 						propDefinitons.push(
-							`${sqlNameToODataName(synonym)}?: ${referencedInterface}[];`,
+							`${sqlNameToODataName(synonym)}?: Array<${referencedInterface}>;`,
 						);
 					}
 					return propDefinitons;

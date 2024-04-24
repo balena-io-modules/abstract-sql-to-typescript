@@ -299,7 +299,7 @@ test(
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
 				id: Types['Serial']['Read'];
-				is_referenced_by__test?: Test['Read'][];
+				is_referenced_by__test?: Array<Test['Read']>;
 			}
 			Write: {
 				created_at: Types['Date Time']['Write'];
@@ -317,8 +317,8 @@ test(
 				a_file: Types['WebResource']['Read'];
 				parent: { __id: Parent['Read']['id'] } | [Parent['Read']];
 				references__other: { __id: Other['Read']['id'] } | [Other['Read']];
-				test__has__tag_key?: TestTag['Read'][];
-				test_tag?: TestTag['Read'][];
+				test__has__tag_key?: Array<TestTag['Read']>;
+				test_tag?: Array<TestTag['Read']>;
 			}
 			Write: {
 				created_at: Types['Date Time']['Write'];
