@@ -1,4 +1,49 @@
 - commits:
+    - subject: Export a `Resource` type which all resources should conform to
+      hash: 188ac11c28a722c202732b0ee71760e6e0c0d4e4
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+    - subject: Separate the generation code from the exported type helpers
+      hash: 0a9d4165461690b19ce6735cfc80c7a0cf11cf77
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+    - subject: Use types directly from sbvr-types
+      hash: 3ee00d89c1c41ed7f4c6ddfc7a77dea2c2361b35
+      body: |
+        This uses the typescript types exported from @balena/sbvr-types so that
+        new types can be dynamically picked up and the types we expose will
+        match those that sbvr-types expects, avoiding any potential issues if
+        our hardcoded types were to diverge from the types sbvr-types actually
+        expects
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+    - subject: Expose read vs write selection in generated types
+      hash: 46a6b741771a1eb2aa4520445b40e61ef57bcd53
+      body: |
+        This allows easily choosing read vs write types with just one set of
+        types with no need to generate/manage two separate sets of typings. It
+        also allows these typings to be passed as generics to other functions
+        and they will also be able to distinguish read vs write
+      footer:
+        Change-type: major
+        change-type: major
+      author: Pagan Gazzard
+      nested: []
+  version: 3.0.0
+  title: ""
+  date: 2024-05-02T11:30:52.814Z
+- commits:
     - subject: Improve foreign key typings by referencing the appropriate interface
       hash: 2be23a8ad8a051bac1c52c0ca0b99c30e8c114d1
       body: ""
