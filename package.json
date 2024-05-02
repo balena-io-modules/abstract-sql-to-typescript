@@ -4,6 +4,10 @@
   "description": "A translator for abstract sql into typescript types.",
   "main": "out/index.js",
   "types": "out/index.d.ts",
+  "exports": {
+    ".": "./out/index.js",
+    "./generate": "./out/generate.js"
+  },
   "scripts": {
     "pretest": "npm run lint && npm run prepare",
     "test": "mocha",
@@ -16,6 +20,7 @@
   "dependencies": {
     "@balena/abstract-sql-compiler": "^9.0.4",
     "@balena/odata-to-abstract-sql": "^6.2.3",
+    "@balena/sbvr-types": "^7.1.0",
     "@types/node": "^20.11.24",
     "common-tags": "^1.8.2"
   },
