@@ -15,9 +15,13 @@ type WriteTypes = Types[keyof Types]['Write'];
 
 export type Resource<T extends object = object> = {
 	Read: {
-		[key in keyof T]: ReadTypes | { __id: ReadTypes } | Array<Resource['Read']>;
+		[key in keyof T]:
+			| ReadTypes
+			| { __id: ReadTypes }
+			| Array<Resource['Read']>
+			| null;
 	};
 	Write: {
-		[key in keyof T]: WriteTypes;
+		[key in keyof T]: WriteTypes | null;
 	};
 };
