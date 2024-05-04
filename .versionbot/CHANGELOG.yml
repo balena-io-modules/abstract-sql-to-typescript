@@ -1,4 +1,34 @@
 - commits:
+    - subject: Use `[A] | []` rather than `[A?]` for singular references
+      hash: 0b9661d460138a2e93e30974bb792f2f452290b0
+      body: |
+        This is a more accurate representation because the result will never
+        contain `undefined` and will either be length of 0 or 1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Fix `Resource` typing to allow for null
+      hash: 9e1e5f606cbeb6b9e9739444291f43b80b480d3a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Fix `Resource` typing for expandable properties
+      hash: 8f79d7379e132d17817b8420b01b198e2c1e7ae5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.0.1
+  title: ""
+  date: 2024-05-04T04:34:02.941Z
+- commits:
     - subject: Export a `Resource` type which all resources should conform to
       hash: 188ac11c28a722c202732b0ee71760e6e0c0d4e4
       body: ""
