@@ -62,8 +62,8 @@ const sqlTypeToTypescriptType = (
 				return referencedFieldType;
 			}
 
-			const nullable = f.required ? '' : '?';
-			return `{ __id: ${referencedFieldType} } | [${referencedInterface}${nullable}]`;
+			const nullable = f.required ? '' : ' | []';
+			return `{ __id: ${referencedFieldType} } | [${referencedInterface}]${nullable}`;
 		}
 		default:
 			return `Types['${f.dataType}']['${mode}']`;
