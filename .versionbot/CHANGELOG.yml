@@ -1,4 +1,16 @@
 - commits:
+    - subject: Improve `Resource` typing
+      hash: ba1301734f1a71dc2a920d1f378173a6bfa7c4a5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.0.2
+  title: ""
+  date: 2024-05-09T20:07:35.620Z
+- commits:
     - subject: Use `[A] | []` rather than `[A?]` for singular references
       hash: 0b9661d460138a2e93e30974bb792f2f452290b0
       body: |
