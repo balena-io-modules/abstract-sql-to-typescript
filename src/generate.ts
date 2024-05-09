@@ -188,5 +188,21 @@ ${Object.keys(m.tables)
 		return tableToInterface(m, t);
 	})
 	.join('\n\n')}
+
+export default interface $Model {
+${Object.keys(m.tables)
+	.map(
+		(tableName) =>
+			`	${sqlNameToODataName(tableName)}: ${modelNameToCamelCaseName(m.tables[tableName].name)};`,
+	)
+	.join('\n')}
+${Object.keys(m.synonyms).length > 0 ? '	// Synonyms' : ''}
+${Object.keys(m.synonyms)
+	.map(
+		(synonym) =>
+			`	${sqlNameToODataName(synonym)}: ${modelNameToCamelCaseName(m.tables[m.synonyms[synonym]].name)};`,
+	)
+	.join('\n')}
+}
 `;
 };

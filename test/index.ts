@@ -28,7 +28,17 @@ const test = (
 	});
 };
 
-test('no types for an empty model', {}, '');
+test(
+	'no types for an empty model',
+	{},
+	`
+
+export default interface $Model {
+
+
+
+}`,
+);
 
 const testTable: Partial<AbstractSqlModel> = {
 	tables: {
@@ -346,6 +356,15 @@ test(
 				tag_key: Types['Short Text']['Write'];
 				id: Types['Serial']['Write'];
 			}
+		}
+
+		export default interface $Model {
+			parent: Parent;
+			other: Other;
+			test: Test;
+			test__has__tag_key: TestTag;
+			// Synonyms
+			test_tag: TestTag;
 		}
 	`,
 );
