@@ -13,7 +13,11 @@ export type PickDeferred<T, K extends keyof T = keyof T> = {
 type ReadTypes = Types[keyof Types]['Read'];
 type WriteTypes = Types[keyof Types]['Write'];
 
-export type Resource<T extends object = object> = {
+export type Resource<
+	T extends object = {
+		[index: string]: any;
+	},
+> = {
 	Read: {
 		[key in keyof T]:
 			| ReadTypes
