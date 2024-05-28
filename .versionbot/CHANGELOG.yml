@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add a default export which maps OData names to typescript interfaces
+      hash: 877a7987da8cdbaf1f1bfaa4ddd1eff0792692ff
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+  version: 3.1.0
+  title: ""
+  date: 2024-05-28T15:19:24.280Z
+- commits:
     - subject: Improve `Resource` typing
       hash: ba1301734f1a71dc2a920d1f378173a6bfa7c4a5
       body: ""
