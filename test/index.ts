@@ -243,6 +243,11 @@ const testTable: Partial<AbstractSqlModel> = {
 					$: ['id', ['test-has-tag key', 'test']],
 				},
 			},
+			aliased: {
+				tag: {
+					$: ['id', ['test-has-tag key', 'test']],
+				},
+			},
 			references: {
 				other: {
 					$: ['references-other', ['other', 'id']],
@@ -327,6 +332,7 @@ test(
 				a_file: Types['WebResource']['Read'];
 				parent: { __id: Parent['Read']['id'] } | [Parent['Read']];
 				references__other: { __id: Other['Read']['id'] } | [Other['Read']];
+				aliased__tag?: Array<TestTag['Read']>;
 				test__has__tag_key?: Array<TestTag['Read']>;
 				test_tag?: Array<TestTag['Read']>;
 			}
