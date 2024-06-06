@@ -7,10 +7,7 @@ import type {
 	RelationshipInternalNode,
 	RelationshipLeafNode,
 } from '@balena/abstract-sql-compiler';
-import {
-	odataNameToSqlName,
-	sqlNameToODataName,
-} from '@balena/odata-to-abstract-sql';
+import { sqlNameToODataName } from '@balena/odata-to-abstract-sql';
 import { replaceResultTransformer, TemplateTag } from 'common-tags';
 
 type RequiredModelSubset = Pick<
@@ -70,19 +67,26 @@ const sqlTypeToTypescriptType = (
 	}
 };
 
+const fieldToInterfaceProps = (
+	key: string,
+	m: RequiredModelSubset,
+	f: AbstractSqlField,
+	mode: Mode,
+): string => {
+	const nullable = f.required ? '' : ' | null';
+	return `${sqlNameToODataName(key)}: ${sqlTypeToTypescriptType(
+		m,
+		f,
+		mode,
+	)}${nullable};`;
+};
+
 const fieldsToInterfaceProps = (
 	m: RequiredModelSubset,
 	fields: AbstractSqlField[],
 	mode: Mode,
 ): string[] =>
-	fields.map((f) => {
-		const nullable = f.required ? '' : ' | null';
-		return `${sqlNameToODataName(f.fieldName)}: ${sqlTypeToTypescriptType(
-			m,
-			f,
-			mode,
-		)}${nullable};`;
-	});
+	fields.map((f) => fieldToInterfaceProps(f.fieldName, m, f, mode));
 
 const recurseRelationships = (
 	m: RequiredModelSubset,
@@ -97,21 +101,40 @@ const recurseRelationships = (
 			const [localField, referencedField] = (
 				relationships as RelationshipLeafNode
 			).$;
-			if (currentTable.idField === localField && referencedField != null) {
-				const referencedTable = m.tables[referencedField[0]];
-				if (referencedTable != null) {
-					const referencedInterface = getReferencedInterface(
-						referencedTable.name,
-						mode,
-					);
-					const propDefinitons = [
-						`${parentKey}?: Array<${referencedInterface}>;`,
-					];
-					const synonym = inverseSynonyms[odataNameToSqlName(parentKey)];
-					if (synonym != null) {
-						propDefinitons.push(
-							`${sqlNameToODataName(synonym)}?: Array<${referencedInterface}>;`,
+			if (referencedField != null) {
+				if (currentTable.idField === localField) {
+					const referencedTable = m.tables[referencedField[0]];
+					if (referencedTable != null) {
+						const referencedInterface = getReferencedInterface(
+							referencedTable.name,
+							mode,
 						);
+						const propDefinitons = [
+							`${sqlNameToODataName(parentKey)}?: Array<${referencedInterface}>;`,
+						];
+						const synonym = inverseSynonyms[parentKey];
+						if (synonym != null) {
+							propDefinitons.push(
+								`${sqlNameToODataName(synonym)}?: Array<${referencedInterface}>;`,
+							);
+						}
+						return propDefinitons;
+					}
+				} else {
+					const f = currentTable.fields.find(
+						({ fieldName }) => fieldName === localField,
+					)!;
+					const propDefinitons: string[] = [];
+					const addDefinition = (propName: string) => {
+						// Only add the relationship if it doesn't directly match the field name to avoid duplicates
+						if (f.fieldName !== propName) {
+							propDefinitons.push(fieldToInterfaceProps(propName, m, f, mode));
+						}
+					};
+					addDefinition(parentKey);
+					const synonym = inverseSynonyms[parentKey];
+					if (synonym != null) {
+						addDefinition(synonym);
 					}
 					return propDefinitons;
 				}
@@ -124,7 +147,7 @@ const recurseRelationships = (
 			inverseSynonyms,
 			mode,
 			currentTable,
-			`${parentKey}__${key.replace(/ /g, '_')}`,
+			`${parentKey}-${key}`,
 		);
 	});
 
