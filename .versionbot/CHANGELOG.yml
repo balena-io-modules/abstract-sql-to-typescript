@@ -1,4 +1,16 @@
 - commits:
+    - subject: Fix accidental duplicate properties when the verb contains a space
+      hash: 6d343087a3a8333aa6ccbf40ea992c09a839cbf0
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.1.2
+  title: ""
+  date: 2024-06-06T14:21:54.040Z
+- commits:
     - subject: Include reference aliases in generated types
       hash: abcd6845207b15fc862afb9f870282db0fbe6074
       body: ""
