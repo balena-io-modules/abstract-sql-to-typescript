@@ -177,7 +177,7 @@ const relationshipsToInterfaceProps = (
 			inverseSynonyms,
 			mode,
 			table,
-			key.replace(/ /g, '_'),
+			key,
 		);
 	});
 };
