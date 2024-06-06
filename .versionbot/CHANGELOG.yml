@@ -1,4 +1,16 @@
 - commits:
+    - subject: Include reference aliases in generated types
+      hash: abcd6845207b15fc862afb9f870282db0fbe6074
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.1.1
+  title: ""
+  date: 2024-06-06T00:08:51.817Z
+- commits:
     - subject: Add a default export which maps OData names to typescript interfaces
       hash: 877a7987da8cdbaf1f1bfaa4ddd1eff0792692ff
       body: ""
