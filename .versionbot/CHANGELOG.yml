@@ -1,4 +1,18 @@
 - commits:
+    - subject: Import the actual package.json rather than creating a built copy
+      hash: 2b0a51ceb5ec16d80ea684da304e83667b89f0e7
+      body: |
+        This avoids messing up the paths and potentially using the wrong
+        version
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.2.1
+  title: ""
+  date: 2024-06-17T16:10:13.778Z
+- commits:
     - subject: Add a comment to generated types with the version that generated them
       hash: f90dff05efad572dc092b9c03632645eb38c4de4
       body: ""
