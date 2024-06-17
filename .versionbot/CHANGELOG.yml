@@ -1,4 +1,24 @@
 - commits:
+    - subject: Add a comment to generated types with the version that generated them
+      hash: f90dff05efad572dc092b9c03632645eb38c4de4
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+    - subject: Improve formatting of generated types
+      hash: ed7a84e3432a59998195cdae773c9ce0fdc052e5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.2.0
+  title: ""
+  date: 2024-06-17T15:03:28.712Z
+- commits:
     - subject: Fix accidental duplicate properties when the verb contains a space
       hash: 6d343087a3a8333aa6ccbf40ea992c09a839cbf0
       body: ""
