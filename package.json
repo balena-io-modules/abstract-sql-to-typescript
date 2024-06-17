@@ -29,7 +29,7 @@
     "@types/chai": "^4.3.12",
     "@types/common-tags": "^1.8.4",
     "@types/mocha": "^10.0.6",
-    "chai": "^4.4.1",
+    "chai": "^5.0.0",
     "husky": "^9.0.0",
     "lint-staged": "^15.2.2",
     "mocha": "^10.3.0",
