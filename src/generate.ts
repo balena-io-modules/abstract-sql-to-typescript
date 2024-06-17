@@ -9,7 +9,9 @@ import type {
 } from '@balena/abstract-sql-compiler';
 import { sqlNameToODataName } from '@balena/odata-to-abstract-sql';
 import { replaceResultTransformer, TemplateTag } from 'common-tags';
-import { version } from '../package.json';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires -- We want to import the actual package.json rather than copying it to the out dir
+const { version } = require('../package.json');
 
 type RequiredModelSubset = Pick<
 	AbstractSqlModel,
