@@ -301,12 +301,12 @@ test(
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
 				id: Types['Serial']['Read'];
-			}
+			};
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
 				id: Types['Serial']['Write'];
-			}
+			};
 		}
 
 		export interface Other {
@@ -315,12 +315,12 @@ test(
 				modified_at: Types['Date Time']['Read'];
 				id: Types['Serial']['Read'];
 				is_referenced_by__test?: Array<Test['Read']>;
-			}
+			};
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
 				id: Types['Serial']['Write'];
-			}
+			};
 		}
 
 		export interface Test {
@@ -335,7 +335,7 @@ test(
 				aliased__tag?: Array<TestTag['Read']>;
 				test__has__tag_key?: Array<TestTag['Read']>;
 				test_tag?: Array<TestTag['Read']>;
-			}
+			};
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
@@ -344,7 +344,7 @@ test(
 				a_file: Types['WebResource']['Write'];
 				parent: Parent['Write']['id'];
 				references__other: Other['Write']['id'];
-			}
+			};
 		}
 
 		export interface TestTag {
@@ -354,14 +354,14 @@ test(
 				test: { __id: Test['Read']['id'] } | [Test['Read']];
 				tag_key: Types['Short Text']['Read'];
 				id: Types['Serial']['Read'];
-			}
+			};
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
 				test: Test['Write']['id'];
 				tag_key: Types['Short Text']['Write'];
 				id: Types['Serial']['Write'];
-			}
+			};
 		}
 
 		export default interface $Model {

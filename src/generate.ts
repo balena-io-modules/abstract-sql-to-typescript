@@ -15,8 +15,6 @@ type RequiredModelSubset = Pick<
 	'tables' | 'relationships' | 'synonyms'
 >;
 
-const typeHelpers = `import type { Types } from '@balena/abstract-sql-to-typescript';\n`;
-
 const trimNL = new TemplateTag(
 	replaceResultTransformer(/^[\r\n]*|[\r\n]*$/g, ''),
 );
@@ -190,10 +188,10 @@ export interface ${modelNameToCamelCaseName(table.name)} {
 			...fieldsToInterfaceProps(m, table.fields, 'Read'),
 			...relationshipsToInterfaceProps(m, table, 'Read'),
 		].join('\n\t\t')}
-	}
+	};
 	Write: {
 		${[...fieldsToInterfaceProps(m, table.fields, 'Write')].join('\n\t\t')}
-	}
+	};
 }
 `;
 };
@@ -204,7 +202,8 @@ export const abstractSqlToTypescriptTypes = (
 	m: RequiredModelSubset,
 ): string => {
 	return trimNL`
-${typeHelpers}
+import type { Types } from '@balena/abstract-sql-to-typescript';
+
 ${Object.keys(m.tables)
 	.map((tableName) => {
 		const t = m.tables[tableName];
