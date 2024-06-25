@@ -18,23 +18,23 @@
   "repository": "https://github.com/balena-io-modules/abstract-sql-to-typescript.git",
   "author": "",
   "dependencies": {
-    "@balena/abstract-sql-compiler": "^9.0.4",
-    "@balena/odata-to-abstract-sql": "^6.2.3",
-    "@balena/sbvr-types": "^7.1.0",
-    "@types/node": "^20.11.24",
+    "@balena/abstract-sql-compiler": "^9.2.0",
+    "@balena/odata-to-abstract-sql": "^6.2.7",
+    "@balena/sbvr-types": "^7.1.3",
+    "@types/node": "^20.14.8",
     "common-tags": "^1.8.2"
   },
   "devDependencies": {
-    "@balena/lint": "^8.0.0",
-    "@types/chai": "^4.3.12",
+    "@balena/lint": "^8.0.2",
+    "@types/chai": "^4.3.16",
     "@types/common-tags": "^1.8.4",
-    "@types/mocha": "^10.0.6",
+    "@types/mocha": "^10.0.7",
     "chai": "^4.4.1",
-    "husky": "^9.0.0",
-    "lint-staged": "^15.2.2",
-    "mocha": "^10.3.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "mocha": "^10.5.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.5.2"
   },
   "engines": {
     "node": ">=16.13.0",
