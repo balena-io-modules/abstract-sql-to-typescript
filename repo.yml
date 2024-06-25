@@ -4,3 +4,5 @@ upstream:
     url: 'https://github.com/balena-io-modules/lf-to-abstract-sql'
   - repo: '@balena/odata-to-abstract-sql'
     url: 'https://github.com/balena-io-modules/odata-to-abstract-sql'
+  - repo: '@balena/sbvr-types'
+    url: 'https://github.com/balena-io-modules/sbvr-types'
