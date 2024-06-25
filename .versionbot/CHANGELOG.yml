@@ -1,4 +1,16 @@
 - commits:
+    - subject: Avoid misclassifying non-resource arrays in `Expanded`/`Deferred` typings
+      hash: ace38176e397aa93740f7380429a3bffb5c260e6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.2.3
+  title: ""
+  date: 2024-06-25T13:15:58.067Z
+- commits:
     - subject: Update dependencies
       hash: 9a2d5fdf4dc2df431be747b8bd3a0e9bd6278d08
       body: |
