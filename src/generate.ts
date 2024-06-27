@@ -89,6 +89,19 @@ const fieldsToInterfaceProps = (
 ): string[] =>
 	fields.map((f) => fieldToInterfaceProps(f.fieldName, m, f, mode));
 
+const getSynonyms = (
+	s: string,
+	inverseSynonyms: Record<string, string>,
+): string[] => {
+	const synonyms: string[] = [];
+	for (const inverseSynonym of Object.keys(inverseSynonyms)) {
+		if (s.includes(inverseSynonym)) {
+			synonyms.push(s.replace(inverseSynonym, inverseSynonyms[inverseSynonym]));
+		}
+	}
+	return synonyms;
+};
+
 const recurseRelationships = (
 	m: RequiredModelSubset,
 	relationships: Relationship,
@@ -113,11 +126,13 @@ const recurseRelationships = (
 						const propDefinitons = [
 							`${sqlNameToODataName(parentKey)}?: Array<${referencedInterface}>;`,
 						];
-						const synonym = inverseSynonyms[parentKey];
-						if (synonym != null) {
-							propDefinitons.push(
-								`${sqlNameToODataName(synonym)}?: Array<${referencedInterface}>;`,
-							);
+						const synonyms = getSynonyms(parentKey, inverseSynonyms);
+						if (synonyms.length > 0) {
+							for (const synonym of synonyms) {
+								propDefinitons.push(
+									`${sqlNameToODataName(synonym)}?: Array<${referencedInterface}>;`,
+								);
+							}
 						}
 						return propDefinitons;
 					}
@@ -133,9 +148,11 @@ const recurseRelationships = (
 						}
 					};
 					addDefinition(parentKey);
-					const synonym = inverseSynonyms[parentKey];
-					if (synonym != null) {
-						addDefinition(synonym);
+					const synonyms = getSynonyms(parentKey, inverseSynonyms);
+					if (synonyms.length > 0) {
+						for (const synonym of synonyms) {
+							addDefinition(synonym);
+						}
 					}
 					return propDefinitons;
 				}
