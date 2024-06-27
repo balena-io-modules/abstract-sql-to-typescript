@@ -9,8 +9,9 @@
     "./generate": "./out/generate.js"
   },
   "scripts": {
-    "pretest": "npm run lint && npm run prepare",
+    "pretest": "npm run prepare",
     "test": "mocha",
+    "posttest": "npm run lint",
     "prepare": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module && tsc --project ./tsconfig.build.json",
     "lint": "balena-lint src test && tsc --noEmit",
     "lint-fix": "balena-lint --fix src test"

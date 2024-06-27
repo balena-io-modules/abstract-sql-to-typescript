@@ -255,6 +255,13 @@ const testTable: Partial<AbstractSqlModel> = {
 				other: {
 					$: ['references-other', ['other', 'id']],
 				},
+				test: {
+					has: {
+						'tag key': {
+							$: ['id', ['test-has-tag key', 'test']],
+						},
+					},
+				},
 			},
 			test: {
 				references: {
@@ -336,6 +343,8 @@ test(
 				parent: { __id: Parent['Read']['id'] } | [Parent['Read']];
 				references__other: { __id: Other['Read']['id'] } | [Other['Read']];
 				aliased__tag?: Array<TestTag['Read']>;
+				references__test__has__tag_key?: Array<TestTag['Read']>;
+				references__test_tag?: Array<TestTag['Read']>;
 				test__has__tag_key?: Array<TestTag['Read']>;
 				test_tag?: Array<TestTag['Read']>;
 			};
