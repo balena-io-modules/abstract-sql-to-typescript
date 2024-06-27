@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add support for synonyms that only affect part of the relationship
+      hash: 540a3ebfc526756910924066e053f53eab33b580
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+  version: 3.3.0
+  title: ""
+  date: 2024-06-27T16:16:09.558Z
+- commits:
     - subject: Avoid misclassifying non-resource arrays in `Expanded`/`Deferred` typings
       hash: ace38176e397aa93740f7380429a3bffb5c260e6
       body: ""
