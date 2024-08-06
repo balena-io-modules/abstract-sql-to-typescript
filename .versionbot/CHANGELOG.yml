@@ -1,4 +1,24 @@
 - commits:
+    - subject: Allow for sbvr-types v7, v8, and v9
+      hash: 574f9d591d56dfc31ae4f256e1e4708a5dd893cc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Josh Bowling
+      nested: []
+    - subject: Make @balena/sbvr-types a peer dependency
+      hash: b8d463d58221dca32158405e7a64f73083e8d1be
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Josh Bowling
+      nested: []
+  version: 4.0.0
+  title: ""
+  date: 2024-08-06T23:43:07.454Z
+- commits:
     - subject: Update dependency @balena/sbvr-types to v8
       hash: 8e3750e27e52293db545b56003a2cdba15fe1e89
       body: |
