@@ -21,9 +21,11 @@
   "dependencies": {
     "@balena/abstract-sql-compiler": "^9.2.0",
     "@balena/odata-to-abstract-sql": "^6.2.7",
-    "@balena/sbvr-types": "^8.0.0",
     "@types/node": "^20.14.8",
     "common-tags": "^1.8.2"
+  },
+  "peerDependencies": {
+    "@balena/sbvr-types": "^7.1.0, ^8.0.0, ^9.0.0"
   },
   "devDependencies": {
     "@balena/lint": "^8.0.2",
