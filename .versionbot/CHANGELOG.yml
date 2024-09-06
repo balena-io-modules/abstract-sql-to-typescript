@@ -1,4 +1,24 @@
 - commits:
+    - subject: Fix computed fields to correctly be omitted from `Write` typings
+      hash: 17f5875cb59e83318b2cdddb7886008f1a48c214
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Fix tables with definitions to correctly have no writable fields
+      hash: 55e0d492587f74b711bc119e89d04113d0cb3c88
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 4.0.2
+  title: ""
+  date: 2024-09-06T14:53:21.457Z
+- commits:
     - subject: Update dependencies
       hash: 037567bd7927fb26f8096431ac5c23f497bc8f25
       body: |
