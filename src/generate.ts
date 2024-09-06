@@ -73,7 +73,11 @@ const fieldToInterfaceProps = (
 	m: RequiredModelSubset,
 	f: AbstractSqlField,
 	mode: Mode,
-): string => {
+): string | undefined => {
+	if (f.computed != null) {
+		// Computed terms cannot be written to
+		return;
+	}
 	const nullable = f.required ? '' : ' | null';
 	return `${sqlNameToODataName(key)}: ${sqlTypeToTypescriptType(
 		m,
@@ -87,7 +91,9 @@ const fieldsToInterfaceProps = (
 	fields: AbstractSqlField[],
 	mode: Mode,
 ): string[] =>
-	fields.map((f) => fieldToInterfaceProps(f.fieldName, m, f, mode));
+	fields
+		.map((f) => fieldToInterfaceProps(f.fieldName, m, f, mode))
+		.filter((f) => f != null);
 
 const getSynonyms = (
 	s: string,
@@ -144,7 +150,10 @@ const recurseRelationships = (
 					const addDefinition = (propName: string) => {
 						// Only add the relationship if it doesn't directly match the field name to avoid duplicates
 						if (f.fieldName !== propName) {
-							propDefinitons.push(fieldToInterfaceProps(propName, m, f, mode));
+							const propDefiniton = fieldToInterfaceProps(propName, m, f, mode);
+							if (propDefiniton != null) {
+								propDefinitons.push(propDefiniton);
+							}
 						}
 					};
 					addDefinition(parentKey);
@@ -201,6 +210,13 @@ const relationshipsToInterfaceProps = (
 };
 
 const tableToInterface = (m: RequiredModelSubset, table: AbstractSqlTable) => {
+	const writeType =
+		table.definition != null
+			? // If there's a table definition then we cannot write anything
+				'Record<string, never>'
+			: `{
+		${[...fieldsToInterfaceProps(m, table.fields, 'Write')].join('\n\t\t')}
+	}`;
 	return trimNL`
 export interface ${modelNameToCamelCaseName(table.name)} {
 	Read: {
@@ -209,9 +225,7 @@ export interface ${modelNameToCamelCaseName(table.name)} {
 			...relationshipsToInterfaceProps(m, table, 'Read'),
 		].join('\n\t\t')}
 	};
-	Write: {
-		${[...fieldsToInterfaceProps(m, table.fields, 'Write')].join('\n\t\t')}
-	};
+	Write: ${writeType};
 }
 `;
 };
