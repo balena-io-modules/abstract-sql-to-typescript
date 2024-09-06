@@ -201,6 +201,13 @@ const relationshipsToInterfaceProps = (
 };
 
 const tableToInterface = (m: RequiredModelSubset, table: AbstractSqlTable) => {
+	const writeType =
+		table.definition != null
+			? // If there's a table definition then we cannot write anything
+				'Record<string, never>'
+			: `{
+		${[...fieldsToInterfaceProps(m, table.fields, 'Write')].join('\n\t\t')}
+	}`;
 	return trimNL`
 export interface ${modelNameToCamelCaseName(table.name)} {
 	Read: {
@@ -209,9 +216,7 @@ export interface ${modelNameToCamelCaseName(table.name)} {
 			...relationshipsToInterfaceProps(m, table, 'Read'),
 		].join('\n\t\t')}
 	};
-	Write: {
-		${[...fieldsToInterfaceProps(m, table.fields, 'Write')].join('\n\t\t')}
-	};
+	Write: ${writeType};
 }
 `;
 };
