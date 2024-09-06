@@ -20,24 +20,24 @@
   "author": "",
   "dependencies": {
     "@balena/abstract-sql-compiler": "^9.2.0",
-    "@balena/odata-to-abstract-sql": "^6.2.7",
-    "@types/node": "^20.14.8",
+    "@balena/odata-to-abstract-sql": "^6.3.0",
+    "@types/node": "^20.16.5",
     "common-tags": "^1.8.2"
   },
   "peerDependencies": {
     "@balena/sbvr-types": "^7.1.0, ^8.0.0, ^9.0.0"
   },
   "devDependencies": {
-    "@balena/lint": "^8.0.2",
-    "@types/chai": "^4.3.16",
+    "@balena/lint": "^8.2.7",
+    "@types/chai": "^4.3.19",
     "@types/common-tags": "^1.8.4",
     "@types/mocha": "^10.0.7",
-    "chai": "^4.4.1",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.7",
-    "mocha": "^10.5.1",
+    "chai": "^4.5.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "mocha": "^10.7.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.4"
   },
   "engines": {
     "node": ">=16.13.0",
