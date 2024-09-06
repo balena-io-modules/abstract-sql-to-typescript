@@ -74,7 +74,7 @@ const fieldToInterfaceProps = (
 	f: AbstractSqlField,
 	mode: Mode,
 ): string | undefined => {
-	if (f.computed != null) {
+	if (mode === 'Write' && f.computed != null) {
 		// Computed terms cannot be written to
 		return;
 	}
