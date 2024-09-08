@@ -1,4 +1,16 @@
 - commits:
+    - subject: Fix accidentally omitting `Read` types for computed fields
+      hash: 813492e785721ef2504a9b1afa54a1620e96171c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 4.0.3
+  title: ""
+  date: 2024-09-08T04:05:44.976Z
+- commits:
     - subject: Fix computed fields to correctly be omitted from `Write` typings
       hash: 17f5875cb59e83318b2cdddb7886008f1a48c214
       body: ""
