@@ -28,16 +28,16 @@
     "@balena/sbvr-types": "^7.1.0, ^8.0.0, ^9.0.0"
   },
   "devDependencies": {
-    "@balena/lint": "^8.2.7",
+    "@balena/lint": "^9.0.1",
     "@types/chai": "^4.3.19",
     "@types/common-tags": "^1.8.4",
     "@types/mocha": "^10.0.7",
     "chai": "^4.5.0",
-    "husky": "^9.1.5",
+    "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "mocha": "^10.7.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   },
   "engines": {
     "node": ">=16.13.0",
