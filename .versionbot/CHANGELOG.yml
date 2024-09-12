@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update @balena/lint to 9.x
+      hash: d2c8c970f9d7c70b1e134952c621eaa768fe0f4b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 4.0.5
+  title: ""
+  date: 2024-09-12T16:23:15.397Z
+- commits:
     - subject: Correctly use `Record<string, never>` when there are no writable fields
       hash: 573c4da6d9e4521f700e7f38a033640ef8afe533
       body: ""
