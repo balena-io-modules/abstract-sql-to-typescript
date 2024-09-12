@@ -1,4 +1,17 @@
 - commits:
+    - subject: Fix built file paths now that package.json is imported rather than
+        required
+      hash: 8c223d915d66559b8650536745adb742362392ff
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 4.0.6
+  title: ""
+  date: 2024-09-12T16:40:31.414Z
+- commits:
     - subject: Update @balena/lint to 9.x
       hash: d2c8c970f9d7c70b1e134952c621eaa768fe0f4b
       body: ""
