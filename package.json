@@ -2,6 +2,7 @@
   "name": "@balena/abstract-sql-to-typescript",
   "version": "4.0.6",
   "description": "A translator for abstract sql into typescript types.",
+  "type": "commonjs",
   "main": "out/index.js",
   "types": "out/index.d.ts",
   "exports": {
@@ -19,8 +20,8 @@
   "repository": "https://github.com/balena-io-modules/abstract-sql-to-typescript.git",
   "author": "",
   "dependencies": {
-    "@balena/abstract-sql-compiler": "^9.2.0",
-    "@balena/odata-to-abstract-sql": "^6.3.0",
+    "@balena/abstract-sql-compiler": "^10.0.1",
+    "@balena/odata-to-abstract-sql": "^7.0.0",
     "@types/node": "^20.16.5",
     "common-tags": "^1.8.2"
   },
@@ -40,8 +41,8 @@
     "typescript": "^5.6.2"
   },
   "engines": {
-    "node": ">=16.13.0",
-    "npm": ">=8.1.0"
+    "node": ">=20.14.0",
+    "npm": ">=10.7.0"
   },
   "lint-staged": {
     "*.ts": [
