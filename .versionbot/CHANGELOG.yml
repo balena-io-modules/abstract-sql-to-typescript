@@ -1,4 +1,16 @@
 - commits:
+    - subject: Fix types export
+      hash: 0020286b742e955018eee82ea0081ea11ae68d90
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.1
+  title: ""
+  date: 2024-10-22T10:37:47.047Z
+- commits:
     - subject: Update dependencies
       hash: b2ef23c343366b32bc32af2922a67fd7114990d4
       body: |
