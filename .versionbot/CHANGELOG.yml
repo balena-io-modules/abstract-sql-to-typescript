@@ -1,4 +1,16 @@
 - commits:
+    - subject: Fix peerDependency version format
+      hash: a7928b4e5f403529ee1ac8af3ef9152467698c8d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.3
+  title: ""
+  date: 2024-12-05T18:58:40.566Z
+- commits:
     - subject: Update dependency mocha to v11
       hash: 82228882e9770da405b1e89a777aa60a9c204075
       body: |
