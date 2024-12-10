@@ -64,6 +64,7 @@ const testTable: Partial<AbstractSqlModel> = {
 					fieldName: 'id',
 					required: true,
 					index: 'PRIMARY KEY',
+					computed: ['Field', 'id'],
 				},
 			],
 			primitive: false,
@@ -95,10 +96,11 @@ const testTable: Partial<AbstractSqlModel> = {
 					defaultValue: 'CURRENT_TIMESTAMP',
 				},
 				{
-					dataType: 'Serial',
+					dataType: 'Big Serial',
 					fieldName: 'id',
 					required: true,
 					index: 'PRIMARY KEY',
+					computed: ['Field', 'id'],
 				},
 			],
 			primitive: false,
@@ -134,6 +136,7 @@ const testTable: Partial<AbstractSqlModel> = {
 					fieldName: 'id',
 					required: true,
 					index: 'PRIMARY KEY',
+					computed: ['Field', 'id'],
 				},
 				{
 					dataType: 'Date',
@@ -315,7 +318,6 @@ test(
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
-				id: Types['Serial']['Write'];
 			};
 		}
 
@@ -323,13 +325,12 @@ test(
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
-				id: Types['Serial']['Read'];
+				id: Types['Big Serial']['Read'];
 				is_referenced_by__test?: Array<Test['Read']>;
 			};
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
-				id: Types['Serial']['Write'];
 			};
 		}
 
@@ -351,11 +352,10 @@ test(
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
-				id: Types['Serial']['Write'];
 				a_date: Types['Date']['Write'];
 				a_file: Types['WebResource']['Write'];
-				parent: Parent['Write']['id'];
-				references__other: Other['Write']['id'];
+				parent: Types['Serial']['Write'];
+				references__other: Types['Big Serial']['Write'];
 			};
 		}
 
@@ -370,7 +370,7 @@ test(
 			Write: {
 				created_at: Types['Date Time']['Write'];
 				modified_at: Types['Date Time']['Write'];
-				test: Test['Write']['id'];
+				test: Types['Serial']['Write'];
 				tag_key: Types['Short Text']['Write'];
 				id: Types['Serial']['Write'];
 			};

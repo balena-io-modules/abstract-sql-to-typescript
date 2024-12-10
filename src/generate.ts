@@ -56,6 +56,18 @@ const sqlTypeToTypescriptType = (
 			);
 			const referencedFieldType = `${referencedInterface}['${f.references!.fieldName}']`;
 			if (mode === 'Write') {
+				if (f.references != null) {
+					const referencedField = m.tables[
+						f.references.resourceName
+					].fields.find(
+						({ fieldName }) => fieldName === f.references!.fieldName,
+					);
+					// If the referenced field is computed it won't generate a write typing
+					// so we have to in-line it here as we cannot reference it
+					if (referencedField?.computed != null) {
+						return `Types['${referencedField.dataType}']['${mode}']`;
+					}
+				}
 				return referencedFieldType;
 			}
 
