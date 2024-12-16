@@ -1,4 +1,18 @@
 - commits:
+    - subject: Inline type on missing reference
+      hash: 069ff8967f2ebde2982fa54e76757ef299e29c68
+      body: |
+        Replace referenced fields with their types when those
+        fields will not be included in the generated output.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Josh Bowling
+      nested: []
+  version: 5.0.4
+  title: ""
+  date: 2024-12-16T13:47:22.570Z
+- commits:
     - subject: Fix peerDependency version format
       hash: a7928b4e5f403529ee1ac8af3ef9152467698c8d
       body: ""
