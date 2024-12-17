@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add option to replace Serial with Integer
+      hash: cdf0e4e2fc7f91c3fcadbb32d476e3bb47557f24
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Josh Bowling
+      nested: []
+  version: 5.1.0
+  title: ""
+  date: 2024-12-17T01:27:34.934Z
+- commits:
     - subject: Inline type on missing reference
       hash: 069ff8967f2ebde2982fa54e76757ef299e29c68
       body: |
