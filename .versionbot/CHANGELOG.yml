@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency lint-staged to v16
+      hash: 12e514d1fd8eb2174e7c47ac0b0f632c6fe546ec
+      body: |
+        Update lint-staged from 15.5.2 to 16.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.1.1
+  title: ""
+  date: 2025-05-14T23:28:42.126Z
+- commits:
     - subject: Add option to replace Serial with Integer
       hash: cdf0e4e2fc7f91c3fcadbb32d476e3bb47557f24
       body: ""
