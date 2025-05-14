@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@balena/lint": "^9.0.1",
-    "@types/chai": "^4.3.19",
+    "@types/chai": "^5.0.0",
     "@types/common-tags": "^1.8.4",
     "@types/mocha": "^10.0.7",
-    "chai": "^4.5.0",
+    "chai": "^5.0.0",
     "husky": "^9.1.6",
     "lint-staged": "^16.0.0",
     "mocha": "^11.0.0",
