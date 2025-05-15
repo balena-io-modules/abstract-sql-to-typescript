@@ -236,6 +236,42 @@ const testTable: Partial<AbstractSqlModel> = {
 				},
 			],
 		},
+		event: {
+			fields: [
+				{
+					dataType: 'Date Time',
+					fieldName: 'created at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'Date Time',
+					fieldName: 'modified at',
+					required: true,
+					defaultValue: 'CURRENT_TIMESTAMP',
+				},
+				{
+					dataType: 'Short Text',
+					fieldName: 'uuid',
+					required: true,
+					index: 'PRIMARY KEY',
+					computed: ['Field', 'uuid'],
+				},
+			],
+			primitive: false,
+			name: 'event',
+			indexes: [],
+			idField: 'uuid',
+			resourceName: 'event',
+			triggers: [
+				{
+					when: 'BEFORE',
+					operation: 'UPDATE',
+					level: 'ROW',
+					fnName: 'trigger_update_modified_at',
+				},
+			],
+		},
 	},
 	relationships: {
 		test: {
@@ -311,6 +347,7 @@ test(
 	testTable,
 	source`
 		export interface Parent {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -323,6 +360,7 @@ test(
 		}
 
 		export interface Other {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -336,6 +374,7 @@ test(
 		}
 
 		export interface Test {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -361,6 +400,7 @@ test(
 		}
 
 		export interface TestTag {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -377,11 +417,25 @@ test(
 			};
 		}
 
+		export interface Event {
+			IDField: 'uuid';
+			Read: {
+				created_at: Types['Date Time']['Read'];
+				modified_at: Types['Date Time']['Read'];
+				uuid: Types['Short Text']['Read'];
+			};
+			Write: {
+				created_at: Types['Date Time']['Write'];
+				modified_at: Types['Date Time']['Write'];
+			};
+		}
+
 		export default interface $Model {
 			parent: Parent;
 			other: Other;
 			test: Test;
 			test__has__tag_key: TestTag;
+			event: Event;
 			// Synonyms
 			test_tag: TestTag;
 		}
@@ -393,6 +447,7 @@ test(
 	testTable,
 	source`
 		export interface Parent {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -405,6 +460,7 @@ test(
 		}
 
 		export interface Other {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -418,6 +474,7 @@ test(
 		}
 
 		export interface Test {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -443,6 +500,7 @@ test(
 		}
 
 		export interface TestTag {
+			IDField: 'id';
 			Read: {
 				created_at: Types['Date Time']['Read'];
 				modified_at: Types['Date Time']['Read'];
@@ -459,11 +517,25 @@ test(
 			};
 		}
 
+		export interface Event {
+			IDField: 'uuid';
+			Read: {
+				created_at: Types['Date Time']['Read'];
+				modified_at: Types['Date Time']['Read'];
+				uuid: Types['Short Text']['Read'];
+			};
+			Write: {
+				created_at: Types['Date Time']['Write'];
+				modified_at: Types['Date Time']['Write'];
+			};
+		}
+
 		export default interface $Model {
 			parent: Parent;
 			other: Other;
 			test: Test;
 			test__has__tag_key: TestTag;
+			event: Event;
 			// Synonyms
 			test_tag: TestTag;
 		}

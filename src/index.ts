@@ -18,6 +18,7 @@ export type Resource<
 		[index: string]: any;
 	},
 > = {
+	IDField: keyof T;
 	Read: {
 		[key in keyof T]:
 			| ReadTypes
@@ -29,3 +30,7 @@ export type Resource<
 		[key in keyof T]: WriteTypes | null;
 	};
 };
+
+export type IDOf<T extends Resource> = T['IDField'] extends keyof T['Read']
+	? T['Read'][T['IDField']]
+	: unknown;
