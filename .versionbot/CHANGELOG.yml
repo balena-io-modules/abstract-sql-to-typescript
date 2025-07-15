@@ -1,4 +1,16 @@
 - commits:
+    - subject: Allow for sbvr-types v11
+      hash: deb4653b75a83d2cdd8bd6711b7c9fd9c9b0c926
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: joshbwlng
+      nested: []
+  version: 5.1.3
+  title: ""
+  date: 2025-07-15T10:01:35.510Z
+- commits:
     - subject: Allow sbvr-types v10 as peer dependency
       hash: 769015a6e199bbc4c497a6d29d6b79f3761fe884
       body: ""
