@@ -21,7 +21,7 @@
   "author": "",
   "dependencies": {
     "@balena/abstract-sql-compiler": "^10.0.1",
-    "@balena/odata-to-abstract-sql": "^7.0.0",
+    "@balena/odata-to-abstract-sql": "^8.0.0",
     "@types/node": "^20.16.5",
     "common-tags": "^1.8.2"
   },
