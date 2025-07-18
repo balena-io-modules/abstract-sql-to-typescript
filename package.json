@@ -22,7 +22,7 @@
   "dependencies": {
     "@balena/abstract-sql-compiler": "^10.6.3",
     "@balena/odata-to-abstract-sql": "^8.0.1",
-    "@types/node": "^20.16.5",
+    "@types/node": "^22.0.0",
     "common-tags": "^1.8.2"
   },
   "peerDependencies": {
