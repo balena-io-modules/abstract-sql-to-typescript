@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update deps
+      hash: 32efff80fac186229a046864dad0351ac7d5d3d9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: joshbwlng
+      nested: []
+  version: 5.1.4
+  title: ""
+  date: 2025-07-18T08:00:56.720Z
+- commits:
     - subject: Allow for sbvr-types v11
       hash: deb4653b75a83d2cdd8bd6711b7c9fd9c9b0c926
       body: ""
