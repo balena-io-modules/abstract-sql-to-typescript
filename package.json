@@ -2,7 +2,7 @@
   "name": "@balena/abstract-sql-to-typescript",
   "version": "5.1.5",
   "description": "A translator for abstract sql into typescript types.",
-  "type": "commonjs",
+  "type": "module",
   "main": "out/src/index.js",
   "types": "out/src/index.d.ts",
   "exports": {
@@ -50,7 +50,7 @@
     ]
   },
   "mocha": {
-    "require": "@swc-node/register",
+    "require": "@swc-node/register/esm-register",
     "enable-source-maps": true,
     "_": "test/**/*.ts"
   },
