@@ -2,7 +2,7 @@
   "name": "@balena/abstract-sql-to-typescript",
   "version": "5.1.5",
   "description": "A translator for abstract sql into typescript types.",
-  "type": "commonjs",
+  "type": "module",
   "main": "out/src/index.js",
   "types": "out/src/index.d.ts",
   "exports": {
@@ -20,8 +20,8 @@
   "repository": "https://github.com/balena-io-modules/abstract-sql-to-typescript.git",
   "author": "",
   "dependencies": {
-    "@balena/abstract-sql-compiler": "^10.6.3",
-    "@balena/odata-to-abstract-sql": "^8.0.2",
+    "@balena/abstract-sql-compiler": "^11.0.0",
+    "@balena/odata-to-abstract-sql": "^9.0.0",
     "@types/node": "^20.19.9",
     "common-tags": "^1.8.2"
   },
@@ -31,10 +31,10 @@
   "devDependencies": {
     "@balena/lint": "^9.3.2",
     "@swc-node/register": "^1.10.10",
-    "@types/chai": "^4.3.20",
+    "@types/chai": "^5.2.2",
     "@types/common-tags": "^1.8.4",
     "@types/mocha": "^10.0.10",
-    "chai": "^4.5.0",
+    "chai": "^5.2.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "mocha": "^11.7.1",
@@ -50,7 +50,7 @@
     ]
   },
   "mocha": {
-    "require": "@swc-node/register",
+    "require": "@swc-node/register/esm-register",
     "enable-source-maps": true,
     "_": "test/**/*.ts"
   },
