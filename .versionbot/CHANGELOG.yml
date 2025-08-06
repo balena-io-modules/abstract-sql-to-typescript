@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add support for writable tables with definitions
+      hash: 0fe525bf580706d3d37758e836830be6c65956dc
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested: []
+  version: 6.1.0
+  title: ""
+  date: 2025-08-06T12:50:39.595Z
+- commits:
     - subject: Update @balena/abstract-sql-compiler to 11.x,
         @balena/odata-to-abstract-sql to 9.x
       hash: 7ca2207809ca28a640542cd92f1a46dce029b09a
