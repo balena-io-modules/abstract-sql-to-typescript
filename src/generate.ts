@@ -247,14 +247,14 @@ const tableToInterface = (
 ) => {
 	const writableFields =
 		table.definition != null
-			? []
-			: fieldsToInterfaceProps(m, table.fields, 'Write', opts);
+			? (table.modifyFields ?? [])
+			: (table.modifyFields ?? table.fields);
 	const writeType =
 		writableFields.length === 0
 			? // If there's a table definition then we cannot write anything
 				'Record<string, never>'
 			: `{
-		${writableFields.join('\n\t\t')}
+		${fieldsToInterfaceProps(m, writableFields, 'Write', opts).join('\n\t\t')}
 	}`;
 	return trimNL`
 export interface ${modelNameToCamelCaseName(table.name)} {
