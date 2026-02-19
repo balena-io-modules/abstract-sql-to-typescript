@@ -1,4 +1,18 @@
 - commits:
+    - subject: "Add id-token: write permission for NPM OIDC publishing"
+      hash: 1006cce49079d5a39d69f85e44ac1f903097b58f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 6.1.3
+  title: ""
+  date: 2026-02-19T01:33:57.929Z
+- commits:
     - subject: Update dependency chai to v6
       hash: 5e98dd16dcc924b88afc15992b5cec7bdf1b4d3b
       body: |
