@@ -1,4 +1,17 @@
 - commits:
+    - subject: Pin product-os/flowzone action to a53cf4b
+      hash: 61143c653ca416eaf2a3e1dd5d6a68c4ec01f73e
+      body: |
+        Update product-os/flowzone
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.1.4
+  title: ""
+  date: 2026-03-24T18:07:19.156Z
+- commits:
     - subject: "Add id-token: write permission for NPM OIDC publishing"
       hash: 1006cce49079d5a39d69f85e44ac1f903097b58f
       body: ""
