@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update to typescript v6
+      hash: 1458382fe3db77c82d9c9dbe3f0a2f8271650f20
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 6.1.21
+  title: ""
+  date: 2026-05-18T13:34:22.560Z
+- commits:
     - subject: Update dependency lint-staged to v17
       hash: f3168fccaacca97bd44d3ceb535839240781c2f3
       body: |
