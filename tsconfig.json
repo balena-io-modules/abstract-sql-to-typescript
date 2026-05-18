@@ -12,7 +12,11 @@
 		"declaration": true,
 		"skipLibCheck": true,
 		"outDir": "out",
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"types": [
+			"node",
+			"mocha"
+		]
 	},
 	"include": [
 		"src/**/*.ts",
