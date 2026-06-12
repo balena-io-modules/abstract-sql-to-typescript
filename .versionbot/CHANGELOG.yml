@@ -1,4 +1,17 @@
 - commits:
+    - subject: Pin dependencies
+      hash: 9536b2007a95ee9dd241a0067b2e3a3de209af16
+      body: |
+        Update @swc-node/register
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.1.22
+  title: ""
+  date: 2026-06-12T02:42:20.446Z
+- commits:
     - subject: Update to typescript v6
       hash: 1458382fe3db77c82d9c9dbe3f0a2f8271650f20
       body: ""
