@@ -287,7 +287,7 @@ ${Object.keys(m.tables)
 	})
 	.join('\n\n')}
 
-export default interface $Model {
+export interface $Model {
 ${Object.keys(m.tables)
 	.map(
 		(tableName) =>
@@ -302,5 +302,7 @@ ${Object.keys(m.synonyms)
 	)
 	.join('\n')}
 }
+
+export default $Model;
 `;
 };
