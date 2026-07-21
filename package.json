@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@balena/lint": "^9.3.2",
-    "@swc-node/register": "1.11.1",
+    "@swc-node/register": "1.12.1",
     "@types/chai": "5.2.3",
     "@types/common-tags": "1.8.4",
     "@types/mocha": "10.0.10",
