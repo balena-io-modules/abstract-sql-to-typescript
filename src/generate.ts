@@ -2,6 +2,7 @@ import type {
 	AbstractSqlField,
 	AbstractSqlModel,
 	AbstractSqlTable,
+	AnyTypeNodes,
 	InNode,
 	Relationship,
 	RelationshipInternalNode,
@@ -27,6 +28,30 @@ const trimNL = new TemplateTag(
 
 const replaceSerial = (s: string): string => s.replace(/serial$/i, 'Integer');
 
+// Generates a single quoted string literal, using JSON.stringify to handle escaping
+const toStringLiteral = (s: string): string =>
+	`'${JSON.stringify(s).slice(1, -1).replaceAll('\\"', '"').replaceAll("'", "\\'")}'`;
+
+const valueToLiteralType = ([type, value]: AnyTypeNodes):
+	string | undefined => {
+	if (
+		(type === 'Text' || type === 'EmbeddedText') &&
+		typeof value === 'string'
+	) {
+		return toStringLiteral(value);
+	}
+	if (
+		(type === 'Integer' || type === 'Real' || type === 'Number') &&
+		typeof value === 'number' &&
+		Number.isFinite(value)
+	) {
+		return `${value}`;
+	}
+	if (type === 'Boolean' && typeof value === 'boolean') {
+		return `${value}`;
+	}
+};
+
 const modelNameToCamelCaseName = (s: string): string =>
 	s
 		.split(/[ -]/)
@@ -48,9 +73,11 @@ const sqlTypeToTypescriptType = (
 		);
 		if (inChecks) {
 			const [, , ...allowedValues] = inChecks;
-			return allowedValues
-				.map(([type, value]) => (type === 'Text' ? `'${value}'` : value))
-				.join(' | ');
+			const literalTypes = allowedValues.map(valueToLiteralType);
+			// If any of the allowed values cannot be represented as a literal type then we fall back to the field's type
+			if (literalTypes.every((literalType) => literalType != null)) {
+				return literalTypes.join(' | ');
+			}
 		}
 	}
 
