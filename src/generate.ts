@@ -84,23 +84,25 @@ const sqlTypeToTypescriptType = (
 	switch (f.dataType) {
 		case 'ConceptType':
 		case 'ForeignKey': {
+			const referencedTable = m.tables[f.references!.resourceName];
 			const referencedInterface = getReferencedInterface(
-				m.tables[f.references!.resourceName].name,
+				referencedTable.name,
 				mode,
 			);
-			const referencedFieldType = `${referencedInterface}['${f.references!.fieldName}']`;
+			const referencedFieldType = `${referencedInterface}['${sqlNameToODataName(f.references!.fieldName)}']`;
 			if (mode === 'Write') {
-				if (f.references != null) {
-					const referencedField = m.tables[
-						f.references.resourceName
-					].fields.find(
-						({ fieldName }) => fieldName === f.references!.fieldName,
-					);
-					// If the referenced field is computed it won't generate a write typing
-					// so we have to in-line it here as we cannot reference it
-					if (referencedField?.computed != null) {
-						return `Types['${opts.convertSerialToInteger ? replaceSerial(referencedField.dataType) : referencedField.dataType}']['${mode}']`;
-					}
+				const referencedField = referencedTable.fields.find(
+					({ fieldName }) => fieldName === f.references!.fieldName,
+				);
+				// If the referenced field is not writable (eg it is computed or the table has a definition) it won't
+				// generate a write typing so we have to in-line it here as we cannot reference it
+				if (
+					referencedField != null &&
+					!getWritableFields(referencedTable).some(
+						({ fieldName }) => fieldName === referencedField.fieldName,
+					)
+				) {
+					return sqlTypeToTypescriptType(m, referencedField, mode, opts);
 				}
 				return referencedFieldType;
 			}
@@ -267,18 +269,23 @@ const relationshipsToInterfaceProps = (
 	});
 };
 
+const getWritableFields = (table: AbstractSqlTable): AbstractSqlField[] =>
+	(table.definition != null
+		? (table.modifyFields ?? [])
+		: (table.modifyFields ?? table.fields)
+	)
+		// Computed fields cannot be written to
+		.filter(({ computed }) => computed == null);
+
 const tableToInterface = (
 	m: RequiredModelSubset,
 	table: AbstractSqlTable,
 	opts: Options,
 ) => {
-	const writableFields =
-		table.definition != null
-			? (table.modifyFields ?? [])
-			: (table.modifyFields ?? table.fields);
+	const writableFields = getWritableFields(table);
 	const writeType =
 		writableFields.length === 0
-			? // If there's a table definition then we cannot write anything
+			? // If there are no writable fields (eg there's a table definition) then we cannot write anything
 				'Record<string, never>'
 			: `{
 		${fieldsToInterfaceProps(m, writableFields, 'Write', opts).join('\n\t\t')}
