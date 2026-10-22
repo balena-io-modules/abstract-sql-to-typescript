@@ -20,10 +20,7 @@ export type Resource<
 > = {
 	Read: {
 		[key in keyof T]:
-			| ReadTypes
-			| { __id: ReadTypes }
-			| Array<Resource['Read']>
-			| null;
+			ReadTypes | { __id: ReadTypes } | Array<Resource['Read']> | null;
 	};
 	Write: {
 		[key in keyof T]: WriteTypes | null;
