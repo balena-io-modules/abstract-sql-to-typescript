@@ -1,4 +1,19 @@
 - commits:
+    - subject: "Tests: move the shared test helper into `test/helpers.ts`"
+      hash: 0e461916e79bd348f394ec204aa660ddf9e92600
+      body: |
+        This allows tests to be split across multiple files, and adds small
+        `table`/`idField` builders so that new tests only need to spell out the
+        parts of a table that are relevant to them.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 6.1.24
+  title: ""
+  date: 2026-10-22T15:15:13.681Z
+- commits:
     - subject: Update dependency lint-staged to v17.0.8
       hash: 24b0427f3b4b7790a1f7389de597cdaab63dc28b
       body: |
