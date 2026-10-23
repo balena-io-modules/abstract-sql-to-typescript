@@ -1,4 +1,33 @@
 - commits:
+    - subject: Escape the allowed values of fields when generating literal types
+      hash: b6ff6bdd6799ecff2f4271a2e4a2835ddc116965
+      body: >
+        The values of `In` checks (eg from `Definition: "a" or "b"`) were
+        wrapped
+
+        in quotes without escaping, so a value containing `'` generated invalid
+
+        typescript and values containing `\` silently generated the wrong
+
+        literal. Any value node other than `Text` was also output as-is, which
+
+        was only valid for numbers.
+
+
+        Values are now properly escaped, `EmbeddedText`/`Number`/`Boolean` nodes
+
+        are supported, and if a value cannot be represented as a literal type
+
+        the field's base type is used instead.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 6.1.28
+  title: ""
+  date: 2026-10-23T13:59:58.336Z
+- commits:
     - subject: Only output identical interfaces once
       hash: 3fb3c099118664da7675883ecdb0b50ca96eb277
       body: |
