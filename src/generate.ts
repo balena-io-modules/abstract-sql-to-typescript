@@ -280,12 +280,11 @@ export const abstractSqlToTypescriptTypes = (
 
 import type { Types } from '@balena/abstract-sql-to-typescript';
 
-${Object.keys(m.tables)
-	.map((tableName) => {
-		const t = m.tables[tableName];
-		return tableToInterface(m, t, opts);
-	})
-	.join('\n\n')}
+${Array.from(
+	// Multiple tables can generate an identical interface, such as the versioned copies of tables that pinejs
+	// translations add (eg `resource$v1`), and we only want to output it once
+	new Set(Object.values(m.tables).map((t) => tableToInterface(m, t, opts))),
+).join('\n\n')}
 
 export default interface $Model {
 ${Object.keys(m.tables)
