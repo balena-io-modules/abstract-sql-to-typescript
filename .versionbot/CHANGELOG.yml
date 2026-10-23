@@ -1,4 +1,20 @@
 - commits:
+    - subject: Only output identical interfaces once
+      hash: 3fb3c099118664da7675883ecdb0b50ca96eb277
+      body: |
+        Interfaces are named after the table name, which multiple tables can
+        share, such as the versioned copies of tables that pinejs translations
+        add (eg `device$v1`), meaning that the same interface was output once
+        per table. Identical interfaces are now only output once.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 6.1.27
+  title: ""
+  date: 2026-10-23T12:12:03.178Z
+- commits:
     - subject: Update dependency flowzonify to v0.4.22
       hash: abd2539fa2fa4a6df28554d1e5dc40f34f63fbb0
       body: |
