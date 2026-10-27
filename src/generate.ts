@@ -285,6 +285,7 @@ const tableToInterface = (
 	}`;
 	return trimNL`
 export interface ${modelNameToCamelCaseName(table.name)} {
+	IDField: '${table.idField}';
 	Read: {
 		${[
 			...fieldsToInterfaceProps(m, table.fields, 'Read', opts),
