@@ -1,4 +1,16 @@
 - commits:
+    - subject: Mark @balena/sbvr-types 12.x as a supported peer dependency
+      hash: 4d11d358af477efa044e3b031212237ef1447ce6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 6.1.29
+  title: ""
+  date: 2026-10-27T14:33:59.673Z
+- commits:
     - subject: Escape the allowed values of fields when generating literal types
       hash: b6ff6bdd6799ecff2f4271a2e4a2835ddc116965
       body: >
