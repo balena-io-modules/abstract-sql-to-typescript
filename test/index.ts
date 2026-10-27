@@ -7,11 +7,14 @@ test(
 	{},
 	`
 
-export default interface $Model {
+export interface $Model {
 
 
 
-}`,
+}
+
+export default $Model;
+`,
 );
 
 const testTable: Partial<AbstractSqlModel> = {
@@ -347,7 +350,7 @@ test(
 			};
 		}
 
-		export default interface $Model {
+		export interface $Model {
 			parent: Parent;
 			other: Other;
 			test: Test;
@@ -355,6 +358,8 @@ test(
 			// Synonyms
 			test_tag: TestTag;
 		}
+
+		export default $Model;
 	`,
 );
 

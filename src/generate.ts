@@ -313,7 +313,7 @@ ${Array.from(
 	new Set(Object.values(m.tables).map((t) => tableToInterface(m, t, opts))),
 ).join('\n\n')}
 
-export default interface $Model {
+export interface $Model {
 ${Object.keys(m.tables)
 	.map(
 		(tableName) =>
@@ -328,5 +328,7 @@ ${Object.keys(m.synonyms)
 	)
 	.join('\n')}
 }
+
+export default $Model;
 `;
 };
