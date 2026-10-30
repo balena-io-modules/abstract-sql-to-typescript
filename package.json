@@ -14,7 +14,7 @@
     "test": "mocha",
     "posttest": "npm run lint",
     "prepare": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module && tsc --project ./tsconfig.build.json",
-    "lint": "balena-lint src test && tsc --noEmit",
+    "lint": "balena-lint src test && tsc --noEmit && tsc --noEmit --project ./test/tsconfig.json",
     "lint-fix": "balena-lint --fix src test"
   },
   "repository": "https://github.com/balena-io-modules/abstract-sql-to-typescript.git",
@@ -30,7 +30,6 @@
   },
   "devDependencies": {
     "@balena/lint": "^9.4.11",
-    "@swc-node/register": "1.12.1",
     "@types/chai": "5.2.3",
     "@types/common-tags": "1.8.4",
     "@types/mocha": "10.0.10",
@@ -50,7 +49,6 @@
     ]
   },
   "mocha": {
-    "require": "@swc-node/register/esm-register",
     "enable-source-maps": true,
     "_": "test/**/*.ts"
   },

@@ -1,6 +1,6 @@
 import type { AbstractSqlModel } from '@balena/abstract-sql-compiler';
 import { source } from 'common-tags';
-import { test } from './helpers.js';
+import { test } from './helpers.ts';
 
 test(
 	'no types for an empty model',
