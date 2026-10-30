@@ -13,6 +13,7 @@
 		"skipLibCheck": true,
 		"outDir": "out",
 		"resolveJsonModule": true,
+		"rewriteRelativeImportExtensions": true,
 		"types": [
 			"node",
 			"mocha"

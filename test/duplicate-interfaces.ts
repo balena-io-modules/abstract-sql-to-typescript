@@ -1,5 +1,5 @@
 import { source } from 'common-tags';
-import { idField, table, test } from './helpers.js';
+import { idField, table, test } from './helpers.ts';
 
 test(
 	'a single interface for tables that generate identical interfaces',

@@ -5,7 +5,7 @@ import type {
 } from '@balena/abstract-sql-compiler';
 import { expect } from 'chai';
 import { source } from 'common-tags';
-import { abstractSqlToTypescriptTypes, type Options } from '../src/generate.js';
+import { abstractSqlToTypescriptTypes, type Options } from '../src/generate.ts';
 import packageJSON from '../package.json' with { type: 'json' };
 
 export const test = (

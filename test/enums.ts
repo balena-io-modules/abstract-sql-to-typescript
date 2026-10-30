@@ -2,7 +2,7 @@ import type {
 	AbstractSqlField,
 	AnyTypeNodes,
 } from '@balena/abstract-sql-compiler';
-import { idField, table, test } from './helpers.js';
+import { idField, table, test } from './helpers.ts';
 
 const enumField = (
 	fieldName: string,
