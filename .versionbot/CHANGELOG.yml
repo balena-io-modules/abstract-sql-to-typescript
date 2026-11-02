@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @balena/lint to v11
+      hash: e22f675ca409214e27be8e34ff2a5da3f8825cc6
+      body: |
+        Update @balena/lint from 9.4.15 to 11.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.1.31
+  title: ""
+  date: 2026-11-02T23:06:47.562Z
+- commits:
     - subject: "Tests: switch from @swc-node/register to node type stripping"
       hash: b35fc88f0b2e814613ee255a2187b942d167d553
       body: |
