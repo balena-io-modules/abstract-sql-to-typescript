@@ -10,7 +10,6 @@
 		"sourceMap": true,
 		"strictNullChecks": true,
 		"declaration": true,
-		"skipLibCheck": true,
 		"outDir": "out",
 		"resolveJsonModule": true,
 		"rewriteRelativeImportExtensions": true,
