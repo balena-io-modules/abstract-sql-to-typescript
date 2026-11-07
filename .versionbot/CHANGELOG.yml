@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency chai to v6.3.0
+      hash: 62f3a6929dbb8743921d318ecd8a8ed03adf000c
+      body: |
+        Update chai from 6.2.2 to 6.3.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.1.34
+  title: ""
+  date: 2026-11-07T00:57:52.717Z
+- commits:
     - subject: Stop skipping type checks of declaration files
       hash: 019385abcbb5b436f2a29826a066207cd6c713a2
       body: |
