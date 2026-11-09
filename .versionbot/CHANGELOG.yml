@@ -1,4 +1,31 @@
 - commits:
+    - subject: Fix the typings of references to id fields that aren't writable or
+        named `id`
+      hash: 945c698448b8eb6477e79a9061f75d95ea10942e
+      body: >
+        - References used the sql name of the referenced field, eg
+          `Migration['Read']['model name']` for a `Database ID Field: model name`,
+          which doesn't exist and so failed to compile; the OData name is now used
+        - The write typing of a reference was only in-lined when the referenced
+          field is computed, but it is also omitted from the referenced table's
+          write typing when that table has a definition (giving `never`, eg for a
+          foreign key to a definition backed resource) or `modifyFields` that
+          don't include it (failing to compile). We now in-line it whenever the
+          referenced field isn't writable, using its full typing (eg its allowed
+          values) rather than just its base type
+        - A table whose writable fields are all computed regressed to `Write:
+        {}`
+          (which accepts anything) rather than `Record<string, never>` when
+          `modifyFields` support was added
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 6.1.36
+  title: ""
+  date: 2026-11-09T22:24:17.277Z
+- commits:
     - subject: Update dependency lint-staged to v17.6.0
       hash: 97c903cc14166d72c98ce14fb8fb7bf59394db3e
       body: |
