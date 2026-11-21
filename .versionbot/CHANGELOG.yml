@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency lint-staged to v17.6.1
+      hash: 06aa2b24afcdc37bb7f780d37d8836f818b95a4b
+      body: |
+        Update lint-staged from 17.6.0 to 17.6.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.1.37
+  title: ""
+  date: 2026-11-21T00:58:22.557Z
+- commits:
     - subject: Fix the typings of references to id fields that aren't writable or
         named `id`
       hash: 945c698448b8eb6477e79a9061f75d95ea10942e
